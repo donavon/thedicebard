@@ -1,0 +1,147 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "import",
+    "jsdoc",
+    "node",
+    "oxc",
+    "promise",
+    "react-perf",
+    "react",
+    "typescript",
+    "unicorn"
+  ],
+  "rules": {
+    "no-console": ["warn", { "message": "Don't do that" }],
+    "react/button-has-type": [
+      "error",
+      {
+        "message": "<button> elements defaults to type=\"submit\" if no type is specified, which can lead to unexpected behavior in forms. Always specify the type explicitly."
+      }
+    ],
+    "unicorn/prefer-number-properties": [
+      "error",
+      {
+        "message": "ECMAScript 2015 moved globals onto the Number constructor for consistency and to slightly improve them."
+      }
+    ],
+    "import/no-duplicates": [
+      "error",
+      {
+        "message": "Duplicate imports can lead to confusion and potential bugs. Ensure that each import is unique."
+      }
+    ],
+    "import/no-empty-named-blocks": [
+      "error",
+      {
+        "message": "Empty named imports serve no practical purpose and often result from accidental deletions or tool-generated code."
+      }
+    ],
+    "no-array-constructor": [
+      "error",
+      {
+        "message": "Using the array constructor can lead to unexpected behavior. Use `Array.from` instead."
+      }
+    ],
+    "no-else-return": [
+      "error",
+      {
+        "message": "Using `else` after a `return` statement is unnecessary and can make the code harder to read. Simply return early."
+      }
+    ],
+    "react/rules-of-hooks": [
+      "error",
+      {
+        "message": "This enforce https://legacy.reactjs.org/docs/hooks-rules.html."
+      }
+    ],
+    "typescript/prefer-ts-expect-error": [
+      "error",
+      {
+        "message": "Use `@ts-expect-error` instead of `@ts-ignore` to ensure that you are aware of the error and it is intentional. Also once the error is resolved, the comment will be detected by TS as unnecessary."
+      }
+    ],
+    "unicorn/prefer-array-flat-map": [
+      "error",
+      {
+        "message": "Use `Array#flatMap` instead of `Array#map` followed by `Array#flat`."
+      }
+    ],
+    "unicorn/prefer-array-index-of": [
+      "error",
+      {
+        "message": "Using Array#findIndex is unnecessarily verbose when Array#indexOf accomplishes the same thing more concisely and clearly."
+      }
+    ],
+    "unicorn/prefer-includes": [
+      "error",
+      {
+        "message": "Prefer Array#includes over Array#indexOf for existence checks because Array#includes is clearer and less error-prone."
+      }
+    ],
+    "unicorn/prefer-node-protocol": [
+      "error",
+      {
+        "message": "Use `node:` for built-in modules to avoid ambiguity and ensure clarity in module resolution."
+      }
+    ],
+    "default-case-last": [
+      "error",
+      {
+        "message": "The `default` case should always be the last case in a switch statement to ensure clarity and maintainability."
+      }
+    ],
+    "default-param-last": [
+      "error",
+      {
+        "message": "Default parameters should be placed at the end of the parameter list to avoid confusion and ensure clarity."
+      }
+    ],
+    "func-style": [
+      "error",
+      "declaration",
+      {
+        "allowArrowFunctions": true,
+        "allowTypeAnnotation": true,
+        "message": "Use function declarations instead of function expressions for consistency and clarity. Arrow functions are allowed for concise syntax."
+      }
+    ],
+    "max-params": [
+      "error",
+      {
+        "max": 3,
+        "message": "Functions should have a maximum of 3 parameters to ensure readability and maintainability. The maximum is set to 3 to enable `handleRequest` in app/entry.server.tsx."
+      }
+    ],
+    "no-await-in-loop": [
+      "error",
+      {
+        "message": "Using `await` inside a loop can lead to performance issues. Consider using `Promise.all` or restructuring your code to avoid this."
+      }
+    ],
+    "no-useless-call": [
+      "error",
+      {
+        "message": "Using Function#call or Function#apply is unnecessary when you can call the function directly. This can lead to performance issues."
+      }
+    ],
+    "oxc/no-accumulating-spread": [
+      "error",
+      {
+        "message": "See https://prateeksurana.me/blog/why-using-object-spread-with-reduce-bad-idea/ for more information."
+      }
+    ],
+    "react/no-array-index-key": [
+      "error",
+      {
+        "message": "Using array indexes as keys can lead to performance issues and bugs in React. Use unique identifiers instead."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "plugins": ["vitest"]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-parchment: #fdf6e3;
+  --color-ink-blue: #2c3e50;
+  --color-dragon-red: #c0392b;
+  --color-warm-leather: #3e2723;
+
+  --font-serif: "Cinzel", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@theme {
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.bg-texture-parchment {
+  background-color: var(--color-parchment);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+html,
+body {
+  @apply bg-parchment text-ink-blue dark:bg-gray-950;
+
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  }
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Global <details> open/close animation behavior */
+:root {
+  --details-duration: 300ms;
+  --details-easing: ease-in-out;
+  interpolate-size: allow-keywords;
+}
+
+details::details-content {
+  overflow-y: clip;
+  block-size: 0;
+
+  transition-property: block-size, content-visibility;
+  transition-duration: var(--details-duration, 0);
+  transition-timing-function: var(--details-easing, ease-in-out);
+  transition-behavior: allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --details-duration: 0;
+  }
+}

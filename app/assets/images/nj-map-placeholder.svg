@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Northern New Jersey Map Placeholder</title>
+  <desc id="desc">Stylized placeholder graphic for a Northern New Jersey service area map.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7ead1" />
+      <stop offset="100%" stop-color="#edd9b7" />
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#9c6a3a" />
+      <stop offset="100%" stop-color="#b7844f" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="800" height="600" fill="url(#paper)" />
+  <g opacity="0.45" stroke="url(#ink)" stroke-width="2">
+    <path d="M60 520 C120 480, 160 460, 220 450" fill="none" />
+    <path d="M120 180 C220 140, 320 130, 420 150" fill="none" />
+    <path d="M420 150 C520 170, 600 220, 660 290" fill="none" />
+    <path d="M140 320 C220 300, 320 300, 420 330" fill="none" />
+    <path d="M420 330 C520 370, 600 420, 700 460" fill="none" />
+  </g>
+  <g fill="none" stroke="#7a2d1e" stroke-width="6" opacity="0.6">
+    <path d="M210 160 L250 110 L320 100 L370 140 L420 210 L400 300 L360 360 L300 410 L240 440 L200 400 L170 330 L150 240 Z" />
+  </g>
+  <text x="50%" y="52%" text-anchor="middle" font-family="Cinzel, serif" font-size="28" fill="#7a2d1e" opacity="0.8">
+    Northern NJ Map
+  </text>
+  <text x="50%" y="58%" text-anchor="middle" font-family="Cinzel, serif" font-size="16" fill="#7a2d1e" opacity="0.7">
+    Placeholder Graphic
+  </text>
+</svg>
