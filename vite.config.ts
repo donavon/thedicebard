@@ -1,4 +1,5 @@
 import mdx from "@mdx-js/rollup";
+import netlify from "@netlify/vite-plugin-react-router";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
@@ -9,6 +10,7 @@ export default defineConfig({
     tailwindcss(),
     mdx({ providerImportSource: "@mdx-js/react" }),
     reactRouter(),
+    netlify(),
     tsconfigPaths(),
   ],
 });
