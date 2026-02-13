@@ -1,5 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
 import { buildTime } from "../data/build-time";
+import { blogPosts } from "../data/blog";
 import { defaultTown, townPages } from "../data/towns";
 
 type SitemapUrl = {
@@ -38,9 +39,15 @@ export function loader({ request }: LoaderFunctionArgs) {
   const staticUrls: SitemapUrl[] = [
     { loc: `${origin}/${defaultTown.slug}/privacy`, lastmod },
     { loc: `${origin}/${defaultTown.slug}/terms`, lastmod },
+    { loc: `${origin}/blog`, lastmod },
   ];
 
-  const body = buildSitemapXml([...townUrls, ...staticUrls]);
+  const blogUrls = blogPosts.map((post) => ({
+    loc: `${origin}/blog/${post.slug}`,
+    lastmod,
+  }));
+
+  const body = buildSitemapXml([...townUrls, ...staticUrls, ...blogUrls]);
 
   return new Response(body, {
     headers: {

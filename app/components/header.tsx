@@ -53,14 +53,20 @@ export function Header() {
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <Link to={`/${townSlug}`} className="flex items-center gap-2 group">
-            <span className="text-2xl md:text-3xl font-serif font-bold text-ink-blue group-hover:text-dragon-red transition-colors duration-300">
+            <span className="text-2xl lg:text-3xl font-serif font-bold text-ink-blue group-hover:text-dragon-red transition-colors duration-300">
               The Dice Bard
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-8">
+          <nav className="hidden md:flex items-center gap-3 lg:gap-8">
             {navItems.map(renderNavItem)}
+            <Link
+              to="/blog"
+              className="text-ink-blue font-serif text-lg font-bold hover:text-dragon-red transition-colors"
+            >
+              Blog
+            </Link>
             <Link
               to={`/${townSlug}/booking`}
               preventScrollReset
@@ -148,6 +154,15 @@ export function Header() {
                 {label}
               </Link>
             ))}
+            <Link
+              to="/blog"
+              className="text-ink-blue font-serif text-xl py-2 border-b border-ink-blue/10 hover:text-dragon-red transition-colors"
+              onClick={() => {
+                dialogRef.current?.close();
+              }}
+            >
+              Blog
+            </Link>
             <Link
               to={`/${townSlug}/booking`}
               preventScrollReset
