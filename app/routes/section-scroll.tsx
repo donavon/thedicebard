@@ -8,9 +8,7 @@ type SectionScrollRouteProps = {
   sectionId: string;
 };
 
-export function SectionScrollRoute({
-  sectionId,
-}: SectionScrollRouteProps) {
+export function SectionScrollRoute({ sectionId }: SectionScrollRouteProps) {
   const [searchParams] = useSearchParams();
   const bookingIntent = searchParams.get("intent");
 
@@ -29,7 +27,9 @@ export function SectionScrollRoute({
     const select = target.querySelector<HTMLSelectElement>("#service");
     if (
       select &&
-      Array.from(select.options).some((option) => option.value === bookingIntent)
+      Array.from(select.options).some(
+        (option) => option.value === bookingIntent
+      )
     ) {
       select.value = bookingIntent;
       select.dispatchEvent(new Event("change", { bubbles: true }));

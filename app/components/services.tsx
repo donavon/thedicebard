@@ -64,9 +64,9 @@ export function Services() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <div
-              key={index}
+              key={service.intent}
               className={`relative p-8 rounded-2xl transition-all duration-300 flex flex-col ${
                 service.highlight
                   ? "bg-dragon-red text-parchment shadow-2xl scale-105 border-2 border-parchment/20"

@@ -1,7 +1,5 @@
-import type { ReactNode } from "react";
-
 type Benefit = {
-  title: ReactNode;
+  title: string;
   desc: string;
 };
 
@@ -59,9 +57,9 @@ export function InfoSection() {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
-            {benefits.map((item, index) => (
+            {benefits.map((item) => (
               <div
-                key={index}
+                key={item.title}
                 className="bg-white/50 backdrop-blur-sm p-5 sm:p-6 rounded-xl border border-ink-blue/10 hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1"
               >
                 <h3 className="text-base sm:text-lg font-serif font-bold mb-3 text-dragon-red leading-tight whitespace-nowrap">

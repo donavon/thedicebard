@@ -6,7 +6,6 @@ import { About } from "../components/about";
 import { ServiceArea } from "../components/service-area";
 import { PatronPortal } from "../components/patron-portal";
 import { BookingWidget } from "../components/booking-widget";
-import { TownFaq } from "../components/town-faq";
 import { Faq } from "../components/faq";
 import { getTownBySlug } from "../data/towns";
 import type { TownPageData } from "../data/towns";
@@ -16,8 +15,6 @@ type HomeProps = {
 };
 
 export function HomeView({ town }: HomeProps) {
-  const faqItems = [...town.commonFaqItems, ...town.extraFaqItems];
-
   return (
     <>
       <Hero title={town.heroTitle} tagline={town.heroTagline} />
@@ -25,10 +22,9 @@ export function HomeView({ town }: HomeProps) {
       <Services />
       <About />
       <ServiceArea copy={town.serviceAreaCopy} />
-      <TownFaq title={town.faqTitle} items={faqItems} />
       <PatronPortal />
       <BookingWidget />
-      <Faq />
+      <Faq title={town.faqTitle} items={town.faqItems} />
     </>
   );
 }

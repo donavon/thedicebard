@@ -1,3 +1,5 @@
+import { faqTitle } from "./site";
+
 export type TownFaqItem = {
   question: string;
   answer: string;
@@ -12,26 +14,49 @@ export type TownPageData = {
   metaDescription: string;
   serviceAreaCopy: string;
   faqTitle: string;
-  commonFaqItems: TownFaqItem[];
-  extraFaqItems: TownFaqItem[];
+  faqItems: TownFaqItem[];
   cityOptions: string[];
 };
 
-const commonFaqItems: TownFaqItem[] = [
+const baseFaqItems: TownFaqItem[] = [
   {
     question: "What exactly is D&D?",
     answer:
-      "It’s a collaborative storytelling game where kids work together, roll dice, and solve problems in a shared adventure.",
+      "Think of it as a collaborative story where kids are the main characters. The Dungeon Master describes the world, the players decide what to do, and dice tell us if their plans succeed.",
   },
   {
-    question: "What ages do you recommend?",
+    question: 'What kind of "loot" do we need to provide?',
     answer:
-      "Most groups are ages 9–14, but we tailor the experience to each group’s comfort level.",
+      "Just a surface like a dining table or kitchen island. We bring dice, character sheets, maps, and miniatures.",
   },
   {
-    question: "What do we need to provide?",
+    question: "Is D&D appropriate for ages 10–13?",
     answer:
-      "Just a table and chairs. We bring dice, character sheets, maps, and everything needed to play.",
+      "Absolutely. Sessions are age-appropriate, creative, and focused on teamwork and problem-solving.",
+  },
+  {
+    question: "How many players can join the party?",
+    answer:
+      "For the best experience, a party of 5–6 players gives everyone plenty of spotlight time.",
+  },
+  {
+    question: "Does it have to be a one-time thing?",
+    answer: "Not at all. We run both one-shot parties and ongoing campaigns.",
+  },
+  {
+    question: "D&D for a birthday party?",
+    answer:
+      "It is a memorable, immersive upgrade from typical parties. Everyone gets a chance to shine in the story.",
+  },
+  {
+    question: "What if my child has never played before?",
+    answer:
+      "Perfect. We teach the basics quickly and make sure everyone feels confident before the adventure starts.",
+  },
+  {
+    question: "Where do you offer your D&D party experience?",
+    answer:
+      "We serve families across Essex & Passaic County, including Montclair, Glen Ridge, Bloomfield, Nutley, Verona, Cedar Grove, Clifton, and nearby towns.",
   },
 ];
 
@@ -51,6 +76,46 @@ const defaultCityOptions = [
   "West Orange",
 ];
 
+function slugifyTown(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function getTownFaqOrderOffset(name: string, count: number) {
+  const slug = slugifyTown(name);
+  const total = slug
+    .split("")
+    .reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  return count === 0 ? 0 : total % count;
+}
+
+function buildTownFaqItems(name: string): TownFaqItem[] {
+  const items: TownFaqItem[] = baseFaqItems.map((item) => {
+    if (item.question === "Where do you offer your D&D party experience?") {
+      return {
+        question: `Do you offer D&D party games in ${name}?`,
+        answer: `Yes. We bring the full D&D party experience to homes and venues in ${name}.`,
+      };
+    }
+    return item;
+  });
+
+  items.push(
+    {
+      question: `How long is a typical ${name} session?`,
+      answer:
+        "Most parties run 2–3 hours, and we can customize the length for your event.",
+    },
+    {
+      question: `What ages do you recommend for a ${name} D&D party?`,
+      answer:
+        "Most groups are ages 9–14, but we tailor every adventure to the group’s comfort level.",
+    }
+  );
+
+  const offset = getTownFaqOrderOffset(name, items.length);
+  return [...items.slice(offset), ...items.slice(0, offset)];
+}
+
 const defaultTown: TownPageData = {
   slug: "home",
   name: "Northern New Jersey",
@@ -62,9 +127,8 @@ const defaultTown: TownPageData = {
     "D&D party games, campaigns, and workshops for kids in Northern New Jersey. Mobile dungeon master services for birthdays, parties, and ongoing adventures.",
   serviceAreaCopy:
     "We serve families across New Jersey’s Essex and Passaic County, including Montclair, Glen Ridge, Bloomfield, Nutley, Verona, Cedar Grove, Clifton, and nearby towns.",
-  faqTitle: "D&D Party FAQs",
-  commonFaqItems,
-  extraFaqItems: [],
+  faqTitle,
+  faqItems: baseFaqItems,
   cityOptions: defaultCityOptions,
 };
 
@@ -79,25 +143,8 @@ const glenRidge: TownPageData = {
     "D&D party games, campaigns, and workshops for kids in Glen Ridge, NJ. Mobile dungeon master services for birthdays, parties, and ongoing adventures.",
   serviceAreaCopy:
     "We serve families in Glen Ridge and nearby towns across Essex & Passaic County.",
-  faqTitle: "Glen Ridge D&D Party FAQs",
-  commonFaqItems,
-  extraFaqItems: [
-    {
-      question: "Do you host D&D parties in Glen Ridge?",
-      answer:
-        "Yes. We run D&D party experiences in Glen Ridge for birthdays, events, and small groups.",
-    },
-    {
-      question: "What ages do you recommend for a Glen Ridge D&D party?",
-      answer:
-        "Most groups are ages 9–14, but we tailor the adventure to your group.",
-    },
-    {
-      question: "What do we need to provide for a Glen Ridge session?",
-      answer:
-        "Just a table and chairs. We bring dice, character sheets, maps, and all game materials.",
-    },
-  ],
+  faqTitle,
+  faqItems: buildTownFaqItems("Glen Ridge"),
   cityOptions: defaultCityOptions,
 };
 
@@ -112,29 +159,40 @@ const montclair: TownPageData = {
     "D&D party games, campaigns, and workshops for kids in Montclair, NJ. Mobile dungeon master services for birthdays, parties, and ongoing adventures.",
   serviceAreaCopy:
     "We serve families in Montclair and nearby towns across Essex & Passaic County.",
-  faqTitle: "Montclair D&D Party FAQs",
-  commonFaqItems,
-  extraFaqItems: [
-    {
-      question: "Do you offer D&D party games in Montclair?",
-      answer:
-        "Yes. We bring the full D&D experience to homes and venues in Montclair.",
-    },
-    {
-      question: "How long is a Montclair D&D party session?",
-      answer:
-        "Most parties run 2–3 hours, but we can customize the length.",
-    },
-    {
-      question: "Is D&D in Montclair good for first-time players?",
-      answer:
-        "Absolutely. We teach the basics quickly and make sure every player shines.",
-    },
-  ],
+  faqTitle,
+  faqItems: buildTownFaqItems("Montclair"),
   cityOptions: defaultCityOptions,
 };
 
-const townPages: TownPageData[] = [defaultTown, glenRidge, montclair];
+function createTownPageData(name: string): TownPageData {
+  const slug = slugifyTown(name);
+
+  return {
+    slug,
+    name,
+    heroTitle: `D&D Party Games in ${name}`,
+    heroTagline: `Professional Dungeons & Dragons campaigns, parties, and workshops in ${name}.`,
+    metaTitle: `D&D Party Games in ${name}, NJ | The Dice Bard`,
+    metaDescription: `D&D party games, campaigns, and workshops for kids in ${name}, NJ. Mobile dungeon master services for birthdays, parties, and ongoing adventures.`,
+    serviceAreaCopy: `We serve families in ${name} and nearby towns across Essex & Passaic County.`,
+    faqTitle,
+    faqItems: buildTownFaqItems(name),
+    cityOptions: defaultCityOptions,
+  };
+}
+
+const additionalTownNames = defaultCityOptions.filter(
+  (name) => name !== "Glen Ridge" && name !== "Montclair"
+);
+
+const additionalTowns = additionalTownNames.map(createTownPageData);
+
+const townPages: TownPageData[] = [
+  defaultTown,
+  glenRidge,
+  montclair,
+  ...additionalTowns,
+];
 
 function getTownBySlug(slug: string) {
   const normalized = slug.toLowerCase();
@@ -142,7 +200,7 @@ function getTownBySlug(slug: string) {
 }
 
 export {
-  commonFaqItems,
+  baseFaqItems,
   defaultTown,
   glenRidge,
   montclair,

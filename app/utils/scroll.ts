@@ -38,10 +38,13 @@ export function handleHashLinkClick(event: MouseEvent<HTMLAnchorElement>) {
 
   const intent = event.currentTarget.getAttribute("data-booking-intent");
   if (intent && id === "booking") {
-    const select = target.querySelector<HTMLSelectElement>("#service");
+    const select = document.querySelector<HTMLSelectElement>("#service");
     if (
       select &&
-      Array.from(select.options).some((option) => option.value === intent)
+      Array.from(select.options).some(
+        (option) =>
+          option instanceof HTMLOptionElement && option.value === intent
+      )
     ) {
       select.value = intent;
       select.dispatchEvent(new Event("change", { bubbles: true }));

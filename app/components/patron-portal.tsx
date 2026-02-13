@@ -25,9 +25,9 @@ export function PatronPortal() {
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {testimonials.map((t, i) => (
+          {testimonials.map((t) => (
             <div
-              key={i}
+              key={t.author}
               className="bg-white/10 p-6 rounded-xl border border-parchment/20 italic"
             >
               <p className="mb-4 text-lg">"{t.quote}"</p>

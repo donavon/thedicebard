@@ -34,7 +34,9 @@ export default function TownSectionRoute() {
     const select = target.querySelector<HTMLSelectElement>("#service");
     if (
       select &&
-      Array.from(select.options).some((option) => option.value === bookingIntent)
+      Array.from(select.options).some(
+        (option) => option.value === bookingIntent
+      )
     ) {
       select.value = bookingIntent;
       select.dispatchEvent(new Event("change", { bubbles: true }));

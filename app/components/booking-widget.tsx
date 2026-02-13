@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router";
-import { getTownBySlug } from "../data/towns";
+import { getTownBySlug, townPages } from "../data/towns";
 import { getTownSlugFromPathname } from "../utils/town";
 
 type BookingStatus = "idle" | "submitting" | "success" | "error";
@@ -28,10 +28,12 @@ export function BookingWidget() {
   const { pathname } = useLocation();
   const townSlug = getTownSlugFromPathname(pathname);
   const town = getTownBySlug(townSlug);
-  const sortedCities = [...town.cityOptions].sort((a, b) =>
-    a.localeCompare(b)
-  );
-  const defaultCity = "";
+  const sortedCities = townPages
+    .filter((page) => page.slug !== "home")
+    .map((page) => page.name)
+    .sort((a, b) => a.localeCompare(b));
+  const defaultCity =
+    town.slug !== "home" && sortedCities.includes(town.name) ? town.name : "";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -246,12 +248,12 @@ export function BookingWidget() {
                         {city}
                       </option>
                     ))}
-                  <option disabled value="">
-                    ──────────
-                  </option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
+                    <option disabled value="divider">
+                      ──────────
+                    </option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
               </div>
 
               <div>

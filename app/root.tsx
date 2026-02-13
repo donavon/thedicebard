@@ -12,14 +12,18 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
+import { GoogleAnalytics } from "./components/google-analytics";
+import { JsonLd } from "./components/json-ld";
 import ogImage from "./assets/images/og-image.png";
+import {
+  defaultTitle,
+  siteDescription,
+  siteName,
+  siteTitle,
+  siteUrl,
+} from "./data/site";
 
-const title = "D&D Party Games in Essex & Passaic County, NJ | The Dice Bard";
-const siteName = "The Dice Bard";
-const siteTitle = "D&D Party Games in Essex & Passaic County, NJ | The Dice Bard";
-const siteUrl = "https://thedicebard.com";
-const siteDescription =
-  "D&D party games, campaigns, and workshops for kids in Essex & Passaic County, NJ. Serving Montclair, Glen Ridge, Bloomfield, and nearby towns.";
+const title = defaultTitle;
 
 export function loader({ request }: Route.LoaderArgs) {
   const origin = new URL(request.url).origin;
@@ -104,24 +108,6 @@ export function links(): ReturnType<Route.LinksFunction> {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const canonicalUrl = `${siteUrl}${getCanonicalPath(pathname)}`;
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "EntertainmentBusiness",
-    name: siteName,
-    url: siteUrl,
-    areaServed: [
-      "Essex County, NJ",
-      "Passaic County, NJ",
-      "Montclair, NJ",
-      "Glen Ridge, NJ",
-      "Bloomfield, NJ",
-      "Nutley, NJ",
-      "Verona, NJ",
-      "Cedar Grove, NJ",
-      "Clifton, NJ",
-    ],
-    description: siteDescription,
-  };
 
   return (
     <html lang="en">
@@ -131,6 +117,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="canonical" href={canonicalUrl} />
         <Meta />
         <Links />
+        <GoogleAnalytics />
       </head>
       <body>
         <div className="font-sans antialiased text-gray-900 bg-texture-parchment min-h-screen flex flex-col">
@@ -138,10 +125,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <main className="flex-grow">{children}</main>
           <Footer />
         </div>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd />
         <ScrollRestoration />
         <Scripts />
       </body>
