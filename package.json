@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
-    "dev": "react-router dev",
+    "build": "node scripts/write-build-time.mjs && react-router build",
+    "dev": "node scripts/write-build-time.mjs && react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "lint": "oxlint --deny-warnings .",
     "format": "oxfmt .",

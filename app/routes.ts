@@ -4,6 +4,7 @@ export default [
   index("routes/index.tsx"),
   route("robots.txt", "routes/robots.txt.ts"),
   route("sitemap.xml", "routes/sitemap.xml.ts"),
+  route(".well-known/*", "routes/well-known.tsx"),
   route(":town", "routes/town.tsx"),
   route(":town/:section", "routes/town-section.tsx"),
 ] satisfies RouteConfig;

@@ -1,4 +1,5 @@
 import type { LoaderFunctionArgs } from "react-router";
+import { buildTime } from "../data/build-time";
 import { defaultTown, townPages } from "../data/towns";
 
 type SitemapUrl = {
@@ -26,7 +27,6 @@ function buildSitemapXml(urls: SitemapUrl[]) {
 
 export function loader({ request }: LoaderFunctionArgs) {
   const origin = new URL(request.url).origin;
-  const buildTime = process.env.BUILD_TIME;
   const lastmod = buildTime
     ? new Date(buildTime).toISOString().slice(0, 10)
     : undefined;

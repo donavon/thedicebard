@@ -1,6 +1,8 @@
 const measurementId = "G-KDCSM2CWSC";
 
 export function GoogleAnalytics() {
+  if (import.meta.env.DEV) return null;
+
   return (
     <>
       <script
