@@ -109,9 +109,9 @@ export function BookingWidget() {
   }
 
   return (
-    <section id="booking" className="py-24 px-4 bg-parchment">
+    <section id="booking" className="py-16 px-4 bg-parchment sm:py-24">
       <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden border border-ink-blue/10 flex flex-col md:flex-row">
-        <div className="bg-ink-blue text-parchment p-12 md:w-1/3 flex flex-col justify-center">
+        <div className="bg-ink-blue text-parchment px-6 py-10 sm:p-12 md:w-1/3 flex flex-col justify-center">
           <h3 className="text-3xl font-serif font-bold mb-4">
             Start Your Quest
           </h3>
@@ -128,7 +128,7 @@ export function BookingWidget() {
           </div>
         </div>
 
-        <div className="p-12 md:w-2/3 bg-white">
+        <div className="px-6 py-6 sm:p-12 md:w-2/3 bg-white">
           {status === "success" ? (
             <div className="rounded-2xl border border-ink-blue/10 bg-parchment/40 p-8 text-center">
               <h4 className="text-2xl font-serif font-bold text-ink-blue">
@@ -164,7 +164,7 @@ export function BookingWidget() {
             </div>
           ) : (
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label
                     htmlFor="name"

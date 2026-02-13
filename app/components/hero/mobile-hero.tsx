@@ -15,7 +15,7 @@ export function MobileHero({ title, tagline }: MobileHeroProps) {
     "Professional D&D campaigns, parties, and workshops designed to build math skills, storytelling, and lifelong friendships.";
 
   return (
-    <div className="md:hidden -mx-4 sm:-mx-6 pb-44 overflow-visible">
+    <div className="md:hidden -mx-4 sm:-mx-6 pb-44 overflow-x-hidden overflow-y-visible">
       <div className="relative h-[550px] overflow-visible z-20">
         <div
           aria-hidden="true"

@@ -29,7 +29,7 @@ export function DesktopHero({ title, tagline }: DesktopHeroProps) {
           Serving Northern New Jersey
         </span>
         <div className="text-center text-ink-blue max-w-[92%] sm:max-w-3xl lg:max-w-4xl">
-          <h1 className="font-serif uppercase text-[clamp(1.6rem,4.2vw,3.3rem)] md:text-[clamp(1.9rem,3.8vw,3.2rem)] lg:text-[clamp(1.8rem,4.5vw,3.75rem)] tracking-wide text-[#8A1E1A] font-bold leading-tight text-balance drop-shadow-[0_2px_2px_rgba(253,246,227,0.7)]">
+          <h1 className="font-serif uppercase text-[clamp(1.6rem,4.2vw,3.3rem)] md:text-[clamp(1.9rem,3.8vw,3.2rem)] lg:text-[clamp(1.8rem,4.5vw,3.75rem)] tracking-wide text-[#8A1E1A] font-bold leading-tight text-balance drop-shadow-[0_2px_2px_rgba(253,246,227,0.7)] max-w-[22ch] md:max-w-[24ch] lg:max-w-[26ch] mx-auto px-2 sm:px-4">
             {heroTitle}
           </h1>
 

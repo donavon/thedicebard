@@ -7,7 +7,10 @@ export function About() {
   const townSlug = getTownSlugFromPathname(pathname);
 
   return (
-    <section id="about" className="py-24 px-4 bg-parchment text-ink-blue">
+    <section
+      id="about"
+      className="py-24 px-4 bg-parchment text-ink-blue overflow-x-hidden md:overflow-x-visible"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative">

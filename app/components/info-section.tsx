@@ -8,43 +8,19 @@ type Benefit = {
 export function InfoSection() {
   const benefits: Benefit[] = [
     {
-      title: (
-        <>
-          Probability
-          <br />
-          &amp; Math
-        </>
-      ),
+      title: "Probability & Math",
       desc: "Calculate odds, manage resources, and apply critical thinking.",
     },
     {
-      title: (
-        <>
-          Improv
-          <br />
-          &amp; Performance
-        </>
-      ),
+      title: "Improv & Performance",
       desc: "Build confidence, act in character, and think on your feet.",
     },
     {
-      title: (
-        <>
-          Social-Emotional
-          <br />
-          Learning
-        </>
-      ),
+      title: "Social-Emotional Learning",
       desc: "Navigate complex social dynamics and practice empathy.",
     },
     {
-      title: (
-        <>
-          Collaborative
-          <br />
-          Storytelling
-        </>
-      ),
+      title: "Collaborative Storytelling",
       desc: "Work together to weave a narrative where every voice matters.",
     },
   ];
@@ -62,7 +38,7 @@ export function InfoSection() {
           What is Dungeons & Dragons?
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] items-center">
           <div className="prose prose-lg text-ink-blue/80 font-sans leading-relaxed">
             <p className="mb-6">
               Dungeons & Dragons (also known as D&amp;D) is a fantasy
@@ -82,13 +58,13 @@ export function InfoSection() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid gap-6 lg:grid-cols-2">
             {benefits.map((item, index) => (
               <div
                 key={index}
-                className="bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-ink-blue/10 hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1"
+                className="bg-white/50 backdrop-blur-sm p-5 sm:p-6 rounded-xl border border-ink-blue/10 hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1"
               >
-                <h3 className="text-xl font-serif font-bold mb-3 text-dragon-red leading-tight">
+                <h3 className="text-base sm:text-lg font-serif font-bold mb-3 text-dragon-red leading-tight whitespace-nowrap">
                   {item.title}
                 </h3>
                 <p className="text-sm text-ink-blue/70">{item.desc}</p>

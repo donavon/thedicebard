@@ -10,7 +10,7 @@ export function ServiceArea({ copy }: ServiceAreaProps) {
     "We serve families across New Jersey’s Essex and Passaic County, including Montclair, Glen Ridge, Bloomfield, Nutley, Verona, Cedar Grove, Clifton, and nearby towns.";
 
   return (
-    <section className="px-4 pb-24 pt-8 sm:px-6 lg:px-10 text-ink-blue">
+    <section className="overflow-x-hidden px-4 pb-24 pt-8 sm:px-6 lg:px-10 text-ink-blue">
       <div className="mx-auto w-full max-w-6xl">
         <div className="flex justify-center mb-6">
           <span className="h-1 w-24 bg-dragon-red/50 rounded-full"></span>
@@ -18,7 +18,7 @@ export function ServiceArea({ copy }: ServiceAreaProps) {
         <h2 className="text-3xl md:text-5xl font-serif font-bold text-center mb-12 text-dragon-red drop-shadow-sm">
           Service Area
         </h2>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <div>
             <p className="mt-3 text-base leading-relaxed text-ink-blue/80">
               {serviceCopy}
@@ -33,7 +33,7 @@ export function ServiceArea({ copy }: ServiceAreaProps) {
           </div>
 
           <div className="relative">
-            <div className="relative mx-auto max-w-md rotate-[-20deg]">
+            <div className="relative mx-auto w-[240px] sm:w-[280px] md:w-[320px] lg:max-w-md rotate-[-20deg]">
               <div className="overflow-hidden rounded-[22px] border border-[#B98C5A] bg-[#f7ead1] shadow-[0_14px_26px_rgba(92,58,30,0.25)]">
                 <img
                   src={mapImage}
