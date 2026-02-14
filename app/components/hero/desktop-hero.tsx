@@ -19,6 +19,8 @@ export function DesktopHero({ title, tagline }: DesktopHeroProps) {
       <img
         src={heroParchment}
         alt=""
+        width={1280}
+        height={755}
         className="w-full h-auto block px-8"
         aria-hidden="true"
       />
