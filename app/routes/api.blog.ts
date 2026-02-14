@@ -120,7 +120,7 @@ function buildTitleSvg(title: string) {
       </defs>
       <rect width="100%" height="100%" fill="url(#fade)" />
       <rect x="0" y="${stripY}" width="100%" height="${stripHeight}" fill="rgba(0,0,0,0.55)" />
-      <text font-size="${fontSize}" font-family="Cinzel, serif" fill="#FDF6E3">
+      <text font-size="${fontSize}" font-family="Arial, Helvetica, sans-serif" fill="#FDF6E3">
         ${tspans}
       </text>
     </svg>`
