@@ -1,6 +1,7 @@
 # Agent Guidelines
 
 ## General
+
 - Use `const` instead of `let` whenever possible.
 - Prefer named exports. Use `export default` only when required for routing.
 - Keep modules small and single-purpose.
@@ -9,6 +10,7 @@
 - Use double quotes for strings.
 
 ## Style & Quality
+
 - Keep components and functions focused and short.
 - Avoid unnecessary abstraction.
 - Avoid type casting whenever possible; prefer type-safe narrowing, guards, and better type definitions.
