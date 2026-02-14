@@ -1,0 +1,55 @@
+content:
+  - name: blog
+    label: Blog Posts
+    type: collection
+    path: app/content/blog
+    format: yaml-frontmatter
+    filename: "{primary}.mdx"
+    view:
+      fields: [title, author, publishedDate, lastModified]
+      primary: title
+      sort: [publishedDate, title]
+      default:
+        sort: publishedDate
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: synopsis
+        label: Synopsis
+        type: text
+        required: true
+      - name: author
+        label: Author
+        type: string
+        required: true
+      - name: publishedDate
+        label: Published Date
+        type: date
+        required: true
+      - name: lastModified
+        label: Last Modified
+        type: date
+        required: false
+      - name: imageUrl
+        label: Image URL
+        type: string
+        required: true
+      - name: imageAlt
+        label: Image Alt Text
+        type: string
+        required: true
+      - name: imageCreditName
+        label: Image Credit Name
+        type: string
+        required: true
+      - name: imageCreditUrl
+        label: Image Credit URL
+        type: string
+        required: true
+      - name: body
+        label: Post Body
+        type: code
+        required: true
