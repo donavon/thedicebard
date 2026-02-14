@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
+import { BlogCta } from "../components/blog-cta";
 import { blogMdxComponents } from "../components/blog-mdx";
 import { blogPosts, getBlogPostBySlug } from "../data/blog";
 import { siteName, siteUrl } from "../data/site";
@@ -94,6 +95,7 @@ export default function BlogPost() {
           <PostContent components={blogMdxComponents} />
         </article>
 
+        <BlogCta />
         <div className="mt-12 border-t border-ink-blue/10 pt-8">
           <h2 className="text-2xl font-serif font-bold text-ink-blue">
             More from the Blog

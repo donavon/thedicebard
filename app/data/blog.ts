@@ -1,3 +1,4 @@
+import type { ComponentType } from "react";
 import * as CreateCharacterModule from "../content/blog/create-your-first-character.mdx";
 import * as DndForParentsModule from "../content/blog/dnd-for-parents.mdx";
 import * as DiceChecksModule from "../content/blog/dice-checks-and-saves.mdx";
@@ -19,55 +20,39 @@ type BlogFrontmatter = {
 
 type BlogPost = BlogFrontmatter & {
   slug: string;
-  Component: () => JSX.Element;
+  Component: ComponentType<{ components?: Record<string, unknown> }>;
 };
+
+function getFrontmatter(module: { frontmatter?: Record<string, unknown> }) {
+  return module.frontmatter as BlogFrontmatter;
+}
 
 const blogPosts: BlogPost[] = [
   {
     slug: "create-your-first-character",
-    ...(
-      CreateCharacterModule as {
-        frontmatter: BlogFrontmatter;
-      }
-    ).frontmatter,
+    ...getFrontmatter(CreateCharacterModule),
     Component: CreateCharacterModule.default,
   },
   {
     slug: "dnd-for-parents",
-    ...(
-      DndForParentsModule as {
-        frontmatter: BlogFrontmatter;
-      }
-    ).frontmatter,
+    ...getFrontmatter(DndForParentsModule),
     imageUrl: dndForParentsImage,
     Component: DndForParentsModule.default,
   },
   {
     slug: "dice-checks-and-saves",
-    ...(
-      DiceChecksModule as {
-        frontmatter: BlogFrontmatter;
-      }
-    ).frontmatter,
+    ...getFrontmatter(DiceChecksModule),
     Component: DiceChecksModule.default,
   },
   {
     slug: "dnd-jargon-glossary",
-    ...(
-      DndJargonModule as {
-        frontmatter: BlogFrontmatter;
-      }
-    ).frontmatter,
+    ...getFrontmatter(DndJargonModule),
     imageUrl: dndJargonImage,
     Component: DndJargonModule.default,
   },
   {
     slug: "session-zero-basics",
-    ...(
-      SessionZeroModule as {
-        frontmatter: BlogFrontmatter;
-      }
-    ).frontmatter,
+    ...getFrontmatter(SessionZeroModule),
     Component: SessionZeroModule.default,
   },
 ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

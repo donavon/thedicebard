@@ -40,7 +40,7 @@ export default function BlogIndex() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {blogPosts.map((post) => (
-            <article key={post.slug} className="md:h-[520px]">
+            <article key={post.slug} className="md:h-130">
               <Link
                 to={`/blog/${post.slug}`}
                 className="group flex h-full flex-col rounded-2xl border border-ink-blue/10 bg-white shadow-lg transition-transform duration-300 hover:-translate-y-1"

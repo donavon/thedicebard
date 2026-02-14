@@ -8,6 +8,9 @@
 
   --font-serif: "Cinzel", serif;
   --font-sans: "Inter", sans-serif;
+
+  --breakpoint-xs: 375px;
+  --breakpoint-ss: 390px;
 }
 
 @theme {

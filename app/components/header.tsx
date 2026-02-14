@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { Link, useLocation } from "react-router";
 import buttonWaxRedSmall from "../assets/hero/wax-button-small-cropped.webp";
 import { getTownSlugFromPathname } from "../utils/town";
+import { HeroButton } from "./hero/hero-button";
+import { heroButtons } from "./hero/hero-data";
 
 type NavItem = {
   label: string;
@@ -46,6 +48,12 @@ export function Header() {
       </Link>
     );
   }
+
+  function closeDialog() {
+    dialogRef.current?.close();
+  }
+
+  const [button] = heroButtons;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-sm shadow-md border-b-2 border-ink-blue/10">
@@ -115,18 +123,18 @@ export function Header() {
         aria-modal="true"
       >
         <div className="flex h-full flex-col">
-          <div className="flex items-center justify-between border-b border-ink-blue/10 px-6 py-5">
-            <span className="text-lg font-serif font-semibold text-ink-blue">
+          <div className="flex items-center justify-between border-b border-ink-blue/10 px-4 sm:px-6 h-16">
+            <span className="text-2xl font-serif font-bold text-ink-blue">
               Menu
             </span>
             <form method="dialog">
               <button
                 type="submit"
-                className="text-ink-blue hover:text-dragon-red transition-colors"
+                className="p-2 text-ink-blue hover:text-dragon-red transition-colors"
                 aria-label="Close menu"
               >
                 <svg
-                  className="h-7 w-7"
+                  className="h-8 w-8"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -140,47 +148,33 @@ export function Header() {
             </form>
           </div>
 
-          <nav className="flex flex-1 flex-col gap-4 px-6 py-6">
+          <nav className="flex flex-1 flex-col px-6 py-6">
             {navItems.map(({ label, section }) => (
               <Link
                 key={section}
                 to={`/${townSlug}/${section}`}
                 preventScrollReset
-                className="text-ink-blue font-serif text-xl py-2 border-b border-ink-blue/10 hover:text-dragon-red transition-colors"
-                onClick={() => {
-                  dialogRef.current?.close();
-                }}
+                className="flex h-16 items-center text-ink-blue font-serif text-xl font-bold border-b border-ink-blue/10 hover:text-dragon-red transition-colors"
+                onClick={closeDialog}
               >
                 {label}
               </Link>
             ))}
             <Link
               to="/blog"
-              className="text-ink-blue font-serif text-xl py-2 border-b border-ink-blue/10 hover:text-dragon-red transition-colors"
-              onClick={() => {
-                dialogRef.current?.close();
-              }}
+              className="flex h-16 items-center text-ink-blue font-serif text-xl font-bold border-b border-ink-blue/10 hover:text-dragon-red transition-colors"
+              onClick={closeDialog}
             >
               Blog
             </Link>
-            <Link
-              to={`/${townSlug}/booking`}
-              preventScrollReset
-              className="mt-6 relative inline-flex items-center justify-center h-[56px] px-6 text-parchment font-serif text-sm font-medium uppercase tracking-wide transition-transform duration-200 hover:-translate-y-0.5"
-              onClick={() => {
-                dialogRef.current?.close();
-              }}
-            >
-              <img
-                src={buttonWaxRedSmall}
-                alt=""
-                className="absolute inset-0 h-full w-full object-fill"
-                aria-hidden="true"
+            <div className="text-center pt-8">
+              <HeroButton
+                label={button.label}
+                section={button.section}
+                image={button.image}
+                variant="mobile"
               />
-              <span className="relative z-10 drop-shadow-[0_3px_3px_rgba(0,0,0,0.8)]">
-                Book Your Quest
-              </span>
-            </Link>
+            </div>
           </nav>
         </div>
       </dialog>

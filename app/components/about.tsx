@@ -40,16 +40,16 @@ export function About() {
                 <span className="text-ink-blue font-medium">
                   Rollick Carlberg West
                 </span>{" "}
-                has 7 years of experience and a deep love for the game. They
+                has 7 years of experience and a deep love for the game. He
                 believe peer-to-peer connection is vital for kids. Having a
                 "third space" that is neither school nor home is essential for
                 growth.
               </p>
               <p className="mb-4">
-                They provide a safe, inclusive environment where every
+                He provides a safe, inclusive environment where every
                 player—including neurodivergent kids—feels welcomed and heroic.
-                Their table is a place where math meets magic, and shy kids
-                become bold leaders.
+                His table is a place where math meets magic, and shy kids become
+                bold leaders.
               </p>
             </div>
 
