@@ -5,4 +5,5 @@
 # React Router
 /.react-router/
 /build/
+/.netlify/
 app/data/build-time.ts
