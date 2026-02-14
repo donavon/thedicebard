@@ -30,7 +30,7 @@ export function About() {
           </div>
 
           <div className="mt-12 md:mt-0">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-ink-blue text-balance">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-dragon-red text-balance">
               About the{" "}
               <span className="text-4xl md:text-5xl">Dungeon Master</span>
             </h2>

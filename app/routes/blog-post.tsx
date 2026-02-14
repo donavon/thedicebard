@@ -24,9 +24,20 @@ export function loader({ params }: LoaderFunctionArgs) {
   return { slug };
 }
 
-export function meta({ params }: { params: { slug?: string } }) {
+export function meta({
+  params,
+  matches,
+}: {
+  params: { slug?: string };
+  matches: Array<{ id: string; data?: unknown }> | undefined;
+}) {
   const slug = params.slug ?? "";
   const post = getBlogPostBySlug(slug);
+  const rootMatch = matches?.find((match) => match.id === "root");
+  const origin =
+    rootMatch && typeof rootMatch.data === "object" && rootMatch.data
+      ? (rootMatch.data as { origin?: string }).origin
+      : siteUrl;
 
   if (!post) {
     return [
@@ -35,13 +46,17 @@ export function meta({ params }: { params: { slug?: string } }) {
     ];
   }
 
+  const ogImageUrl = `${origin}/api/blog/${post.slug}`;
+
   return [
     { title: `${post.title} | ${siteName}` },
     { name: "description", content: post.synopsis },
     { property: "og:title", content: post.title },
     { property: "og:description", content: post.synopsis },
-    { property: "og:image", content: post.imageUrl },
-    { property: "og:url", content: `${siteUrl}/blog/${post.slug}` },
+    { property: "og:image", content: ogImageUrl },
+    { property: "og:url", content: `${origin}/blog/${post.slug}` },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:image", content: ogImageUrl },
   ];
 }
 
@@ -79,17 +94,19 @@ export default function BlogPost() {
             className="h-full w-full object-cover"
           />
         </div>
-        <p className="mt-3 text-xs text-ink-blue/60">
-          Photo by{" "}
-          <a
-            href={post.imageCreditUrl}
-            className="underline hover:text-ink-blue"
-            rel="noreferrer"
-            target="_blank"
-          >
-            {post.imageCreditName}
-          </a>
-        </p>
+        {post.imageCreditName && post.imageCreditUrl ? (
+          <p className="mt-3 text-xs text-ink-blue/60">
+            Photo by{" "}
+            <a
+              href={post.imageCreditUrl}
+              className="underline hover:text-ink-blue"
+              rel="noreferrer"
+              target="_blank"
+            >
+              {post.imageCreditName}
+            </a>
+          </p>
+        ) : null}
 
         <article className="mt-8">
           <PostContent components={blogMdxComponents} />

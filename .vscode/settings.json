@@ -2,8 +2,8 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.oxlint": true,
-    "source.fixAll.eslint": false
+    "source.fixAll.oxlint": "explicit",
+    "source.fixAll.eslint": "never"
   },
   "editor.formatOnSaveMode": "file",
   "eslint.enable": false,

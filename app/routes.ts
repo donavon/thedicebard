@@ -7,6 +7,7 @@ export default [
   route(".well-known/*", "routes/well-known.tsx"),
   route("blog", "routes/blog.tsx"),
   route("blog/:slug", "routes/blog-post.tsx"),
+  route("api/blog/:slug", "routes/api.blog.ts"),
   route(":town", "routes/town.tsx"),
   route(":town/:section", "routes/town-section.tsx"),
 ] satisfies RouteConfig;

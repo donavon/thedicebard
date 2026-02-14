@@ -31,7 +31,7 @@ export function PatronPortal() {
               className="bg-white/10 p-6 rounded-xl border border-parchment/20 italic"
             >
               <p className="mb-4 text-lg">"{t.quote}"</p>
-              <p className="font-bold text-dragon-red not-italic">
+              <p className="font-bold text-parchment not-italic">
                 — {t.author}
               </p>
             </div>

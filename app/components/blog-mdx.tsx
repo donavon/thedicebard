@@ -46,6 +46,19 @@ const blogMdxComponents = {
   strong: function BlogStrong({ children }: { children: ReactNode }) {
     return <strong className="font-semibold text-ink-blue">{children}</strong>;
   },
+  a: function BlogLink({
+    children,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { children: ReactNode }) {
+    return (
+      <a
+        {...props}
+        className="underline decoration-ink-blue/40 underline-offset-4 transition-colors hover:text-dragon-red"
+      >
+        {children}
+      </a>
+    );
+  },
   blockquote: function BlogQuote({ children }: { children: ReactNode }) {
     return (
       <blockquote className="mt-6 border-l-4 border-[#8A1E1A] px-4 text-ink-blue/80 italic">

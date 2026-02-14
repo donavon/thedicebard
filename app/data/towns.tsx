@@ -1,8 +1,10 @@
+import type { ReactNode } from "react";
+import { Link } from "react-router";
 import { faqTitle } from "./site";
 
 export type TownFaqItem = {
   question: string;
-  answer: string;
+  answer: ReactNode;
 };
 
 export type TownPageData = {
@@ -21,23 +23,40 @@ export type TownPageData = {
 const baseFaqItems: TownFaqItem[] = [
   {
     question: "What exactly is D&D?",
-    answer:
-      "Think of it as a collaborative story where kids are the main characters. The Dungeon Master describes the world, the players decide what to do, and dice tell us if their plans succeed.",
+    answer: (
+      <>
+        Think of it as a <strong>collaborative story</strong> where kids are the
+        main characters. The Dungeon Master describes the world, the players
+        decide what to do, and dice tell us if their plans succeed.
+      </>
+    ),
   },
   {
     question: 'What kind of "loot" do we need to provide?',
-    answer:
-      "Just a surface like a dining table or kitchen island. We bring dice, character sheets, maps, and miniatures.",
+    answer: (
+      <>
+        Just a surface like a dining table or kitchen island. We bring{" "}
+        <strong>dice, character sheets, maps, and miniatures</strong>.
+      </>
+    ),
   },
   {
     question: "Is D&D appropriate for ages 10–13?",
-    answer:
-      "Absolutely. Sessions are age-appropriate, creative, and focused on teamwork and problem-solving.",
+    answer: (
+      <>
+        Absolutely. Sessions are <strong>age-appropriate</strong>, creative, and
+        focused on teamwork and problem-solving.
+      </>
+    ),
   },
   {
     question: "How many players can join the party?",
-    answer:
-      "For the best experience, a party of 5–6 players gives everyone plenty of spotlight time.",
+    answer: (
+      <>
+        For the best experience, a party of <strong>5–6 players</strong> gives
+        everyone plenty of spotlight time.
+      </>
+    ),
   },
   {
     question: "Does it have to be a one-time thing?",
@@ -57,6 +76,19 @@ const baseFaqItems: TownFaqItem[] = [
     question: "Where do you offer your D&D party experience?",
     answer:
       "We serve families across Essex & Passaic County, including Montclair, Glen Ridge, Bloomfield, Nutley, Verona, Cedar Grove, Clifton, and nearby towns.",
+  },
+  {
+    question: "Why is D&D popular again?",
+    answer: (
+      <>
+        Pop culture helped bring it back—especially Stranger Things and Hawkins,
+        Indiana. We wrote a short overview{" "}
+        <Link to="/blog/dnd-resurgence-stranger-things" className="underline">
+          on our blog
+        </Link>
+        .
+      </>
+    ),
   },
 ];
 

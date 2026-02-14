@@ -25,7 +25,7 @@ export function Faq({ title, items }: FaqProps) {
             {items.map((item) => (
               <details
                 key={item.question}
-                className="group rounded-[14px] border border-[#D2B58A] bg-[#F5E6CE] px-5 py-4 shadow-[0_1px_0_rgba(92,58,30,0.06)] [&_p]:mt-2 [&_strong]:font-semibold"
+                className="group rounded-[14px] border border-[#D2B58A] bg-[#F5E6CE] px-5 py-4 shadow-[0_1px_0_rgba(92,58,30,0.06)] [&_a]:underline [&_a]:decoration-ink-blue/40 [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:text-dragon-red [&_p]:mt-2 [&_strong]:font-semibold"
               >
                 <summary className="cursor-pointer list-none font-serif text-[1.1rem] font-semibold uppercase tracking-[0.1em] text-[#6B2B1B] marker:content-none [&::-webkit-details-marker]:hidden">
                   <span className="flex items-start justify-between gap-4">
