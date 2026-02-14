@@ -1,8 +1,9 @@
-import { Link, useParams } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
+import { BlogPostJsonLd } from "../components/blog-post-json-ld";
 import { BlogCta } from "../components/blog-cta";
 import { blogMdxComponents } from "../components/blog-mdx";
-import { blogPosts, getBlogPostBySlug } from "../data/blog";
+import { getBlogContentComponentBySlug } from "../data/blog-content";
 import { siteName, siteUrl } from "../data/site";
 
 function formatDate(value: string) {
@@ -13,31 +14,60 @@ function formatDate(value: string) {
   });
 }
 
-export function loader({ params }: LoaderFunctionArgs) {
+type BlogPostLoaderData = {
+  post: {
+    author: string;
+    imageAlt: string;
+    imageCreditName: string;
+    imageCreditUrl: string;
+    imageUrl: string;
+    lastModified?: string;
+    publishedDate: string;
+    slug: string;
+    synopsis: string;
+    title: string;
+  };
+  relatedPosts: Array<{
+    slug: string;
+    title: string;
+  }>;
+};
+
+export async function loader({ params }: LoaderFunctionArgs) {
   const slug = params.slug ?? "";
-  const post = getBlogPostBySlug(slug);
+  const { getValidatedBlogPostBySlug, getValidatedBlogPosts } =
+    await import("../data/blog.server");
+  const post = getValidatedBlogPostBySlug(slug);
 
   if (!post) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  return { slug };
+  return {
+    post,
+    relatedPosts: getValidatedBlogPosts()
+      .filter((item) => item.slug !== post.slug)
+      .map((item) => ({ slug: item.slug, title: item.title })),
+  } satisfies BlogPostLoaderData;
 }
 
 export function meta({
-  params,
+  data,
   matches,
 }: {
-  params: { slug?: string };
+  data: BlogPostLoaderData | undefined;
   matches: Array<{ id: string; data?: unknown }> | undefined;
 }) {
-  const slug = params.slug ?? "";
-  const post = getBlogPostBySlug(slug);
   const rootMatch = matches?.find((match) => match.id === "root");
+  const rootMatchData = rootMatch?.data;
   const origin =
-    rootMatch && typeof rootMatch.data === "object" && rootMatch.data
-      ? (rootMatch.data as { origin?: string }).origin
+    typeof rootMatchData === "object" &&
+    rootMatchData !== null &&
+    "origin" in rootMatchData &&
+    typeof rootMatchData.origin === "string"
+      ? rootMatchData.origin
       : siteUrl;
+  const post = data?.post;
 
   if (!post) {
     return [
@@ -61,17 +91,16 @@ export function meta({
 }
 
 export default function BlogPost() {
-  const { slug = "" } = useParams();
-  const post = getBlogPostBySlug(slug);
+  const { post, relatedPosts } = useLoaderData<typeof loader>();
+  const PostContent = getBlogContentComponentBySlug(post.slug);
 
-  if (!post) {
+  if (!PostContent) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  const PostContent = post.Component;
-
   return (
     <section className="bg-parchment px-4 pb-24 pt-24 text-ink-blue">
+      <BlogPostJsonLd post={post} />
       <div className="mx-auto w-full max-w-3xl">
         <Link
           to="/blog"
@@ -84,7 +113,9 @@ export default function BlogPost() {
         </h1>
         <p className="mt-4 text-ink-blue/70">
           By {post.author} ·{" "}
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          <time dateTime={post.publishedDate}>
+            {formatDate(post.publishedDate)}
+          </time>
         </p>
 
         <div className="mt-8 overflow-hidden rounded-3xl border border-ink-blue/10 shadow-lg aspect-[16/9]">
@@ -112,23 +143,21 @@ export default function BlogPost() {
           <PostContent components={blogMdxComponents} />
         </article>
 
-        <BlogCta />
+        <BlogCta variant="closing" />
         <div className="mt-12 border-t border-ink-blue/10 pt-8">
           <h2 className="text-2xl font-serif font-bold text-ink-blue">
             More from the Blog
           </h2>
           <div className="mt-4 space-y-3">
-            {blogPosts
-              .filter((item) => item.slug !== post.slug)
-              .map((item) => (
-                <Link
-                  key={item.slug}
-                  to={`/blog/${item.slug}`}
-                  className="block text-dragon-red font-semibold hover:underline"
-                >
-                  {item.title}
-                </Link>
-              ))}
+            {relatedPosts.map((item) => (
+              <Link
+                key={item.slug}
+                to={`/blog/${item.slug}`}
+                className="block text-dragon-red font-semibold hover:underline"
+              >
+                {item.title}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

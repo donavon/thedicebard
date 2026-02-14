@@ -11,6 +11,7 @@
 ## Style & Quality
 - Keep components and functions focused and short.
 - Avoid unnecessary abstraction.
+- Avoid type casting whenever possible; prefer type-safe narrowing, guards, and better type definitions.
 - Keep TypeScript types explicit at boundaries.
 - Use Tailwind CSS for styling.
 - Prioritize accessibility: semantic HTML, labeled form controls, and meaningful `alt` text.

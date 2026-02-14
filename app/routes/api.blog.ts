@@ -6,7 +6,7 @@ import path from "node:path";
 import sharp from "sharp";
 import type { LoaderFunctionArgs } from "react-router";
 import openSansRegularTtf from "../assets/fonts/open-sans-regular.ttf";
-import { getBlogPostBySlug } from "../data/blog";
+import { getValidatedBlogPostBySlug } from "../data/blog.server";
 
 const ogWidth = 1200;
 const ogHeight = 630;
@@ -247,7 +247,7 @@ async function buildTitleTextOverlay(
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const slug = params.slug ?? "";
-  const post = getBlogPostBySlug(slug);
+  const post = getValidatedBlogPostBySlug(slug);
 
   if (!post) {
     throw new Response("Not Found", { status: 404 });

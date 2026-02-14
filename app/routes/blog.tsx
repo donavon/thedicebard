@@ -1,5 +1,5 @@
-import { Link } from "react-router";
-import { blogPosts } from "../data/blog";
+import { Link, useLoaderData } from "react-router";
+import type { LoaderFunctionArgs } from "react-router";
 import { siteName, siteUrl } from "../data/site";
 
 function formatDate(value: string) {
@@ -8,6 +8,25 @@ function formatDate(value: string) {
     day: "numeric",
     year: "numeric",
   });
+}
+
+type BlogIndexLoaderData = {
+  posts: Array<{
+    author: string;
+    imageAlt: string;
+    imageUrl: string;
+    publishedDate: string;
+    slug: string;
+    synopsis: string;
+    title: string;
+  }>;
+};
+
+export async function loader(_args: LoaderFunctionArgs) {
+  const { getValidatedBlogPosts } = await import("../data/blog.server");
+  return {
+    posts: getValidatedBlogPosts(),
+  } satisfies BlogIndexLoaderData;
 }
 
 export function meta() {
@@ -24,6 +43,8 @@ export function meta() {
 }
 
 export default function BlogIndex() {
+  const { posts } = useLoaderData<typeof loader>();
+
   return (
     <section className="bg-parchment px-4 pb-24 pt-24 text-ink-blue">
       <div className="mx-auto w-full max-w-6xl">
@@ -39,7 +60,7 @@ export default function BlogIndex() {
         </p>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <article key={post.slug} className="md:h-130">
               <Link
                 to={`/blog/${post.slug}`}
@@ -55,7 +76,7 @@ export default function BlogIndex() {
                 </div>
                 <div className="flex flex-1 flex-col p-6 gap-3">
                   <p className="text-sm uppercase tracking-wide text-ink-blue/60">
-                    {formatDate(post.date)}
+                    {formatDate(post.publishedDate)}
                   </p>
                   <h2 className="text-2xl font-serif font-bold text-dragon-red">
                     {post.title}

@@ -1,6 +1,8 @@
 import type { LoaderFunctionArgs } from "react-router";
-import { buildTime } from "../data/build-time";
-import { blogPosts } from "../data/blog";
+import {
+  getValidatedBlogPostLastmod,
+  getValidatedBlogPosts,
+} from "../data/blog.server";
 import { defaultTown, townPages } from "../data/towns";
 
 type SitemapUrl = {
@@ -28,23 +30,26 @@ function buildSitemapXml(urls: SitemapUrl[]) {
 
 export function loader({ request }: LoaderFunctionArgs) {
   const origin = new URL(request.url).origin;
-  const lastmod = buildTime
-    ? new Date(buildTime).toISOString().slice(0, 10)
-    : undefined;
+  const blogPosts = getValidatedBlogPosts();
   const townUrls = townPages.map((town) => ({
     loc: `${origin}/${town.slug}`,
-    lastmod,
   }));
 
+  const blogPostLastmods = blogPosts.map((post) =>
+    getValidatedBlogPostLastmod(post)
+  );
+  const blogIndexLastmod =
+    blogPostLastmods.length > 0 ? blogPostLastmods.sort().at(-1) : undefined;
+
   const staticUrls: SitemapUrl[] = [
-    { loc: `${origin}/${defaultTown.slug}/privacy`, lastmod },
-    { loc: `${origin}/${defaultTown.slug}/terms`, lastmod },
-    { loc: `${origin}/blog`, lastmod },
+    { loc: `${origin}/${defaultTown.slug}/privacy` },
+    { loc: `${origin}/${defaultTown.slug}/terms` },
+    { loc: `${origin}/blog`, lastmod: blogIndexLastmod },
   ];
 
   const blogUrls = blogPosts.map((post) => ({
     loc: `${origin}/blog/${post.slug}`,
-    lastmod,
+    lastmod: getValidatedBlogPostLastmod(post),
   }));
 
   const body = buildSitemapXml([...townUrls, ...staticUrls, ...blogUrls]);
