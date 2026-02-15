@@ -24,7 +24,7 @@ export function Faq({ title, items }: FaqProps) {
           <div className="mt-6 space-y-3 [&>details:first-of-type]:mt-6">
             {items.map((item) => (
               <details
-                key={item.question}
+                key={item.id}
                 className="group rounded-[14px] border border-[#D2B58A] bg-[#F5E6CE] px-5 py-4 shadow-[0_1px_0_rgba(92,58,30,0.06)] [&_a]:underline [&_a]:decoration-ink-blue/40 [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:text-dragon-red [&_p]:mt-2 [&_strong]:font-semibold"
               >
                 <summary className="cursor-pointer list-none font-serif text-[1.1rem] font-semibold uppercase tracking-[0.1em] text-[#6B2B1B] marker:content-none [&::-webkit-details-marker]:hidden">
@@ -49,9 +49,10 @@ export function Faq({ title, items }: FaqProps) {
                     </span>
                   </span>
                 </summary>
-                <p className="text-[1.05rem] leading-relaxed text-ink-blue/95 max-w-prose">
-                  {item.answer}
-                </p>
+                <div
+                  className="text-[1.05rem] leading-relaxed text-ink-blue/95 max-w-prose [&>p:first-child]:mt-0"
+                  dangerouslySetInnerHTML={{ __html: item.answerHtml }}
+                />
               </details>
             ))}
           </div>

@@ -1,10 +1,26 @@
 import { Link, useLocation } from "react-router";
+import aboutContent, {
+  frontmatter as aboutFrontmatter,
+} from "~/content/about.mdx";
 import rollickHeadshot from "~/assets/images/rollick-headshot-web.webp";
 import { getTownSlugFromPathname } from "~/utils/town";
+import { renderMarkdown } from "~/utils/markdown";
+
+type AboutFrontmatter = {
+  title?: string;
+};
+
+function getAboutTitle() {
+  const frontmatter = aboutFrontmatter as AboutFrontmatter;
+  return frontmatter.title ?? "About the Dungeon Master";
+}
+
+const aboutBodyHtml = renderMarkdown(aboutContent, "app/content/about.mdx");
 
 export function About() {
   const { pathname } = useLocation();
   const townSlug = getTownSlugFromPathname(pathname);
+  const aboutTitle = getAboutTitle();
 
   return (
     <section
@@ -31,27 +47,13 @@ export function About() {
 
           <div className="mt-12 md:mt-0">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-dragon-red text-balance">
-              About the{" "}
-              <span className="text-4xl md:text-5xl">Dungeon Master</span>
+              {aboutTitle}
             </h2>
 
-            <div className="prose prose-lg text-ink-blue font-sans leading-relaxed mb-8">
-              <p className="mb-4">
-                <span className="text-ink-blue font-medium">
-                  Rollick Carlberg West
-                </span>{" "}
-                has 7 years of experience and a deep love for the game. He
-                believe peer-to-peer connection is vital for kids. Having a
-                "third space" that is neither school nor home is essential for
-                growth.
-              </p>
-              <p className="mb-4">
-                He provides a safe, inclusive environment where every
-                player—including neurodivergent kids—feels welcomed and heroic.
-                His table is a place where math meets magic, and shy kids become
-                bold leaders.
-              </p>
-            </div>
+            <div
+              className="prose prose-lg text-ink-blue font-sans leading-relaxed mb-8 [&_p]:mb-4 [&_p:last-child]:mb-0 [&_a]:underline [&_a]:decoration-ink-blue/40 [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:text-dragon-red"
+              dangerouslySetInnerHTML={{ __html: aboutBodyHtml }}
+            />
 
             <div className="bg-ink-blue/5 p-8 rounded-2xl border-l-4 border-dragon-red">
               <h3 className="text-xl font-serif font-bold mb-2 text-ink-blue">

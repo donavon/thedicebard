@@ -2,50 +2,26 @@ import type { ReactNode } from "react";
 import { ParchmentCard } from "~/components/parchment-card";
 
 type PolicyPageProps = {
-  children: ReactNode;
+  children?: ReactNode;
+  html?: string;
 };
 
-export function PolicyPage({ children }: PolicyPageProps) {
+const policyContentClassName =
+  "[&_h1]:text-balance [&_h1]:text-3xl [&_h1]:font-serif [&_h1]:font-bold [&_h1]:text-ink-blue [&_h1]:sm:text-4xl [&_h2]:mt-10 [&_h2]:text-2xl [&_h2]:font-serif [&_h2]:font-bold [&_h2]:text-[#7A2D1E] [&_p]:mt-4 [&_p]:text-base [&_p]:leading-relaxed [&_p]:text-ink-blue/80 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:text-ink-blue/85 [&_li]:leading-relaxed [&_strong]:font-semibold [&_strong]:text-ink-blue [&_a]:underline [&_a]:decoration-ink-blue/40 [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:text-dragon-red";
+
+export function PolicyPage({ children, html }: PolicyPageProps) {
   return (
     <main className="bg-parchment px-4 pb-24 pt-28 text-ink-blue">
-      <ParchmentCard>{children}</ParchmentCard>
+      <ParchmentCard>
+        {html ? (
+          <article
+            className={policyContentClassName}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        ) : (
+          children
+        )}
+      </ParchmentCard>
     </main>
   );
 }
-
-export const policyMdxComponents = {
-  h1: function PolicyTitle({ children }: { children: ReactNode }) {
-    return (
-      <h1 className="text-balance text-3xl font-serif font-bold text-ink-blue sm:text-4xl">
-        {children}
-      </h1>
-    );
-  },
-  h2: function PolicyHeading({ children }: { children: ReactNode }) {
-    return (
-      <h2 className="mt-10 text-2xl font-serif font-bold text-[#7A2D1E]">
-        {children}
-      </h2>
-    );
-  },
-  p: function PolicyParagraph({ children }: { children: ReactNode }) {
-    return (
-      <p className="mt-4 text-base leading-relaxed text-ink-blue/80">
-        {children}
-      </p>
-    );
-  },
-  ul: function PolicyList({ children }: { children: ReactNode }) {
-    return (
-      <ul className="mt-4 list-disc space-y-2 pl-5 text-ink-blue/85">
-        {children}
-      </ul>
-    );
-  },
-  li: function PolicyListItem({ children }: { children: ReactNode }) {
-    return <li className="leading-relaxed">{children}</li>;
-  },
-  strong: function PolicyStrong({ children }: { children: ReactNode }) {
-    return <strong className="font-semibold text-ink-blue">{children}</strong>;
-  },
-};

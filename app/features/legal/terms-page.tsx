@@ -1,10 +1,9 @@
-import { PolicyPage, policyMdxComponents } from "./components/policy-page";
-import TermsContent from "~/content/terms.mdx";
+import termsMarkdown from "~/content/terms.md?raw";
+import { renderMarkdown } from "~/utils/markdown";
+import { PolicyPage } from "./components/policy-page";
+
+const termsContentHtml = renderMarkdown(termsMarkdown, "app/content/terms.md");
 
 export function TermsPage() {
-  return (
-    <PolicyPage>
-      <TermsContent components={policyMdxComponents} />
-    </PolicyPage>
-  );
+  return <PolicyPage html={termsContentHtml} />;
 }

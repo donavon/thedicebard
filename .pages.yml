@@ -71,3 +71,64 @@ content:
           language: markdown
         required: true
         description: "Markdown/MDX content. Use <BlogCta /> where you want the inline CTA."
+
+  - name: faq
+    label: FAQ
+    type: file
+    path: app/content/faq.md
+    format: raw
+    fields:
+      - name: body
+        label: FAQ Content
+        type: code
+        options:
+          language: markdown
+        required: true
+        description: "Use `## Question` headings and put each markdown answer directly underneath."
+
+  - name: about
+    label: Home About
+    type: file
+    path: app/content/about.mdx
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: About Title
+        type: string
+        required: true
+        description: "Main heading shown at the top of the About section."
+      - name: body
+        label: About Copy
+        type: code
+        options:
+          language: markdown
+        required: true
+        description: "Main paragraph copy for the About section."
+
+  - name: privacy
+    label: Privacy Policy
+    type: file
+    path: app/content/privacy.md
+    format: raw
+    fields:
+      - name: body
+        label: Privacy Content
+        type: code
+        options:
+          language: markdown
+        required: true
+        description: "Markdown content for the Privacy Policy page."
+
+  - name: terms
+    label: Terms of Service
+    type: file
+    path: app/content/terms.md
+    format: raw
+    fields:
+      - name: body
+        label: Terms Content
+        type: code
+        options:
+          language: markdown
+        required: true
+        description: "Markdown content for the Terms of Service page."

@@ -11,6 +11,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     mdx({
+      include: /\.mdx$/,
       providerImportSource: "@mdx-js/react",
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
     }),
