@@ -1,9 +1,26 @@
 import { z } from "zod";
+import { replaceTokens } from "./tokens.server";
+import { frontmatter as siteFrontmatter } from "~/content/site.mdx";
 import { frontmatter as aboutFrontmatter } from "~/content/about.mdx";
 import { frontmatter as dndInfoFrontmatter } from "~/content/dnd-info.mdx";
 import { frontmatter as servicesFrontmatter } from "~/content/services.mdx";
 import { frontmatter as patronsFrontmatter } from "~/content/patrons.mdx";
 import { frontmatter as footerFrontmatter } from "~/content/footer.mdx";
+
+const SiteConfigSchema = z.object({
+  siteName: z.string(),
+  siteUrl: z.string(),
+  siteLocale: z.string().default("en-US"),
+  siteTimeZone: z.string().default("America/New_York"),
+  siteTitle: z.string(),
+  siteDescription: z.string(),
+  ownerName: z.string(),
+  contactName: z.string(),
+  contactEmail: z.string(),
+  contactPhone: z.string().default(""),
+});
+
+export type SiteConfig = z.infer<typeof SiteConfigSchema>;
 
 const AboutFrontmatterSchema = z.object({
   title: z.string().default("About the Dungeon Master"),
@@ -83,22 +100,26 @@ const FooterFrontmatterSchema = z.object({
 
 export type FooterContent = z.infer<typeof FooterFrontmatterSchema>;
 
+export function getSiteConfig(): SiteConfig {
+  return SiteConfigSchema.parse(siteFrontmatter);
+}
+
 export function getAboutContent(): AboutContent {
-  return AboutFrontmatterSchema.parse(aboutFrontmatter);
+  return replaceTokens(AboutFrontmatterSchema.parse(aboutFrontmatter));
 }
 
 export function getServicesContent(): ServicesContent {
-  return ServicesFrontmatterSchema.parse(servicesFrontmatter);
+  return replaceTokens(ServicesFrontmatterSchema.parse(servicesFrontmatter));
 }
 
 export function getDndInfoContent(): InfoContent {
-  return InfoFrontmatterSchema.parse(dndInfoFrontmatter);
+  return replaceTokens(InfoFrontmatterSchema.parse(dndInfoFrontmatter));
 }
 
 export function getPatronsContent(): PatronsContent {
-  return PatronsFrontmatterSchema.parse(patronsFrontmatter);
+  return replaceTokens(PatronsFrontmatterSchema.parse(patronsFrontmatter));
 }
 
 export function getFooterContent(): FooterContent {
-  return FooterFrontmatterSchema.parse(footerFrontmatter);
+  return replaceTokens(FooterFrontmatterSchema.parse(footerFrontmatter));
 }

@@ -1,4 +1,72 @@
 content:
+  - name: site
+    label: Site Settings
+    type: file
+    path: app/content/site.mdx
+    format: yaml-frontmatter
+    fields:
+      - name: siteName
+        label: Site Name
+        type: string
+        required: true
+        description: "Tip: Most settings here can be used as tokens (e.g., {{siteName}}, {{ownerName}}) in any CMS text field."
+      - name: siteUrl
+        label: Site URL
+        type: string
+        required: true
+      - name: siteLocale
+        label: Site Locale
+        type: string
+        required: true
+        default: "en-US"
+      - name: siteTimeZone
+        label: Site Time Zone
+        type: select
+        required: true
+        default: "America/New_York"
+        options:
+          values:
+            - value: "America/New_York"
+              label: "Eastern Time (ET)"
+            - value: "America/Chicago"
+              label: "Central Time (CT)"
+            - value: "America/Denver"
+              label: "Mountain Time (MT)"
+            - value: "America/Phoenix"
+              label: "Mountain Time - No DST (Arizona)"
+            - value: "America/Los_Angeles"
+              label: "Pacific Time (PT)"
+            - value: "America/Anchorage"
+              label: "Alaska Time (AKT)"
+            - value: "America/Adak"
+              label: "Hawaii-Aleutian Time (HAT)"
+            - value: "Pacific/Honolulu"
+              label: "Hawaii Time (HST)"
+      - name: siteTitle
+        label: Site Title (SEO)
+        type: string
+        required: true
+      - name: siteDescription
+        label: Site Description (SEO)
+        type: text
+        required: true
+      - name: ownerName
+        label: Owner Name
+        type: string
+        required: true
+      - name: contactName
+        label: Contact Name
+        type: string
+        required: true
+      - name: contactEmail
+        label: Contact Email
+        type: string
+        required: true
+      - name: contactPhone
+        label: Contact Phone
+        type: string
+        required: false
+
   - name: blog
     label: Blog Posts
     type: collection
@@ -191,9 +259,17 @@ content:
             default: false
           - name: intent
             label: Booking Intent Slug
-            type: string
+            type: select
             required: true
-            description: "Used in URL query param (e.g. ?intent=party)"
+            description: "Determines which form is shown on the booking page."
+            options:
+              values:
+                - value: "weekly"
+                  label: "Weekly Campaign"
+                - value: "party"
+                  label: "One-Off / Party"
+                - value: "workshop"
+                  label: "Workshop / Class"
 
   - name: dndInfo
     label: What is D&D
@@ -293,7 +369,7 @@ content:
         label: Copyright Text
         type: string
         required: true
-        description: "Use {year} for current year."
+        description: "Year is replaced automatically via {{year}}."
       - name: disclaimer
         label: Disclaimer Text
         type: text

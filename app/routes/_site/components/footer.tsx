@@ -12,9 +12,6 @@ export function Footer({ content }: FooterProps) {
 
   const { tagline, copyright, disclaimer, privacyLabel, termsLabel } = content;
 
-  const currentYear = new Date().getFullYear().toString();
-  const copyrightText = copyright.replace("{year}", currentYear);
-
   return (
     <footer className="bg-ink-blue text-parchment py-12 border-t border-parchment/10">
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -23,7 +20,7 @@ export function Footer({ content }: FooterProps) {
             className="text-2xl font-serif font-bold mb-2"
             dangerouslySetInnerHTML={{ __html: tagline }}
           />
-          <p className="opacity-60 text-sm">{copyrightText}</p>
+          <p className="opacity-60 text-sm">{copyright}</p>
         </div>
 
         <nav className="flex gap-6 text-sm font-medium opacity-80">

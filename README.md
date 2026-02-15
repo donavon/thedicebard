@@ -14,6 +14,22 @@ A modern, production-ready template for building full-stack React applications u
 - 🎉 TailwindCSS for styling
 - 📖 [React Router docs](https://reactrouter.com/)
 
+## CMS Tokens
+
+Strings in the CMS support double-braced tokens `{{token}}` which are automatically expanded.
+
+### Available Tokens
+
+| Token              | Source (Site Settings) | Example Usage                         |
+| :----------------- | :--------------------- | :------------------------------------ |
+| `{{year}}`         | Current Year (Dynamic) | `© {{year}} {{siteName}}`             |
+| `{{siteName}}`     | Site Name              | `Welcome to {{siteName}}`             |
+| `{{siteUrl}}`      | Site URL               | `[Visit our site]({{siteUrl}})`       |
+| `{{ownerName}}`    | Owner Name             | `Written by {{ownerName}}`            |
+| `{{contactName}}`  | Contact Name           | `Hi, I'm {{contactName}}!`            |
+| `{{contactEmail}}` | Contact Email          | `[Email us](mailto:{{contactEmail}})` |
+| `{{contactPhone}}` | Contact Phone          | `Call us at {{contactPhone}}`         |
+
 ## Getting Started
 
 ### Installation
