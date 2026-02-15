@@ -97,6 +97,23 @@ content:
         type: string
         required: true
         description: "Main heading shown at the top of the About section."
+      - name: stickerQuote
+        label: Sticker Quote
+        type: string
+        required: true
+        description: "Quote shown in the red sticker."
+      - name: promiseTitle
+        label: Promise Title
+        type: string
+        required: true
+      - name: promiseBody
+        label: Promise Body
+        type: text
+        required: true
+      - name: promiseButtonText
+        label: Promise Button Text
+        type: string
+        required: true
       - name: body
         label: About Copy
         type: code
@@ -132,3 +149,160 @@ content:
           language: markdown
         required: true
         description: "Markdown content for the Terms of Service page."
+
+  - name: services
+    label: Services
+    type: file
+    path: app/content/services.mdx
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Section Title
+        type: string
+        required: true
+      - name: subtitle
+        label: Section Subtitle
+        type: string
+        required: true
+      - name: items
+        label: Service Cards
+        type: list
+        object:
+          fields:
+            - name: title
+              label: Title
+              type: string
+              required: true
+            - name: price
+              label: Price/Tagline
+              type: string
+              required: true
+            - name: desc
+              label: Description
+              type: text
+              required: true
+            - name: cta
+              label: CTA Label
+              type: string
+              required: true
+            - name: highlight
+              label: Highlight Card?
+              type: boolean
+              default: false
+            - name: intent
+              label: Booking Intent Slug
+              type: string
+              required: true
+              description: "Used in URL query param (e.g. ?intent=party)"
+
+  - name: dndInfo
+    label: What is D&D
+    type: file
+    path: app/content/dnd-info.mdx
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Section Title
+        type: string
+        required: true
+      - name: introParagraph1
+        label: Intro Paragraph 1
+        type: text
+        required: true
+      - name: introQuote
+        label: Intro Quote
+        type: string
+        required: true
+      - name: introParagraph2
+        label: Intro Paragraph 2
+        type: text
+        required: true
+      - name: benefits
+        label: Benefits List
+        type: list
+        object:
+          fields:
+            - name: title
+              label: Title
+              type: string
+              required: true
+            - name: desc
+              label: Description
+              type: string
+              required: true
+
+  - name: patrons
+    label: Patron Portal
+    type: file
+    path: app/content/patrons.mdx
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Section Title
+        type: string
+        required: true
+      - name: testimonials
+        label: Testimonials
+        type: list
+        object:
+          fields:
+            - name: quote
+              label: Quote
+              type: text
+              required: true
+            - name: author
+              label: Author/Attribution
+              type: string
+              required: true
+      - name: resourcesTitle
+        label: Resources Title
+        type: string
+        required: true
+      - name: resourcesDesc
+        label: Resources Description
+        type: text
+        required: true
+      - name: safetyGuideLabel
+        label: Safety Guide Button Label
+        type: string
+        required: true
+      - name: safetyGuideUrl
+        label: Safety Guide URL
+        type: string
+        required: true
+      - name: consentFormLabel
+        label: Consent Form Button Label
+        type: string
+        required: true
+      - name: consentFormUrl
+        label: Consent Form URL
+        type: string
+        required: true
+
+  - name: footer
+    label: Footer
+    type: file
+    path: app/content/footer.mdx
+    format: yaml-frontmatter
+    fields:
+      - name: tagline
+        label: Brand Tagline
+        type: string
+        required: true
+      - name: copyright
+        label: Copyright Text
+        type: string
+        required: true
+        description: "Use {year} for current year."
+      - name: disclaimer
+        label: Disclaimer Text
+        type: text
+        required: true
+      - name: privacyLabel
+        label: Privacy Link Label
+        type: string
+        required: true
+      - name: termsLabel
+        label: Terms Link Label
+        type: string
+        required: true

@@ -1,27 +1,12 @@
-type Benefit = {
-  title: string;
-  desc: string;
+import type { InfoContent } from "~/content/loader.server";
+
+type InfoSectionProps = {
+  content: InfoContent;
 };
 
-export function InfoSection() {
-  const benefits: Benefit[] = [
-    {
-      title: "Probability & Math",
-      desc: "Calculate odds, manage resources, and apply critical thinking.",
-    },
-    {
-      title: "Improv & Performance",
-      desc: "Build confidence, act in character, and think on your feet.",
-    },
-    {
-      title: "Social-Emotional Learning",
-      desc: "Navigate complex social dynamics and practice empathy.",
-    },
-    {
-      title: "Collaborative Storytelling",
-      desc: "Work together to weave a narrative where every voice matters.",
-    },
-  ];
+export function InfoSection({ content }: InfoSectionProps) {
+  const { title, introParagraph1, introQuote, introParagraph2, benefits } =
+    content;
 
   return (
     <section
@@ -33,27 +18,16 @@ export function InfoSection() {
           <span className="h-1 w-24 bg-dragon-red/50 rounded-full"></span>
         </div>
         <h2 className="text-3xl md:text-5xl font-serif font-bold text-center mb-12 text-dragon-red drop-shadow-sm">
-          What is Dungeons & Dragons?
+          {title}
         </h2>
 
         <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] items-center">
           <div className="prose prose-lg text-ink-blue/80 font-sans leading-relaxed">
-            <p className="mb-6">
-              Dungeons & Dragons (also known as D&amp;D) is a fantasy
-              role-playing game where you and your friends assume the role of a
-              party of adventurers. You can play a warrior wielding a battleaxe
-              or a wizard with powerful spells.
-            </p>
+            <p className="mb-6">{introParagraph1}</p>
             <p className="font-medium text-xl text-ink-blue italic mb-6">
-              "It’s more than a game—it’s a masterclass in probability, math,
-              improv, and social-emotional learning."
+              "{introQuote}"
             </p>
-            <p>
-              It is a communal activity where you, your friends, and the Dungeon
-              Master decide where the story goes. Together, you'll solve
-              puzzles, battle monsters, and create memories that last a
-              lifetime.
-            </p>
+            <p>{introParagraph2}</p>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">

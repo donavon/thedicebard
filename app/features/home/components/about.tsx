@@ -1,26 +1,19 @@
 import { Link, useLocation } from "react-router";
-import aboutContent, {
-  frontmatter as aboutFrontmatter,
-} from "~/content/about.mdx";
+import AboutBody from "~/content/about.mdx";
 import rollickHeadshot from "~/assets/images/rollick-headshot-web.webp";
 import { getTownSlugFromPathname } from "~/utils/town";
-import { renderMarkdown } from "~/utils/markdown";
+import type { AboutContent } from "~/content/loader.server";
 
-type AboutFrontmatter = {
-  title?: string;
+type Props = {
+  content: AboutContent;
 };
 
-function getAboutTitle() {
-  const frontmatter = aboutFrontmatter as AboutFrontmatter;
-  return frontmatter.title ?? "About the Dungeon Master";
-}
-
-const aboutBodyHtml = renderMarkdown(aboutContent, "app/content/about.mdx");
-
-export function About() {
+export function About({ content }: Props) {
   const { pathname } = useLocation();
   const townSlug = getTownSlugFromPathname(pathname);
-  const aboutTitle = getAboutTitle();
+
+  const { title, stickerQuote, promiseTitle, promiseBody, promiseButtonText } =
+    content;
 
   return (
     <section
@@ -39,38 +32,32 @@ export function About() {
             </div>
             <div className="absolute -bottom-6 -right-6 lg:-right-12 bg-dragon-red p-6 rounded-xl shadow-lg max-w-xs border border-dragon-red/40 transform -rotate-2 text-center">
               <p className="font-serif text-lg font-semibold text-parchment">
-                "A safe, inclusive environment where every player feels
-                welcomed."
+                "{stickerQuote}"
               </p>
             </div>
           </div>
 
           <div className="mt-12 md:mt-0">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-dragon-red text-balance">
-              {aboutTitle}
+              {title}
             </h2>
 
-            <div
-              className="prose prose-lg text-ink-blue font-sans leading-relaxed mb-8 [&_p]:mb-4 [&_p:last-child]:mb-0 [&_a]:underline [&_a]:decoration-ink-blue/40 [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:text-dragon-red"
-              dangerouslySetInnerHTML={{ __html: aboutBodyHtml }}
-            />
+            <div className="prose prose-lg text-ink-blue font-sans leading-relaxed mb-8 [&_p]:mb-4 [&_p:last-child]:mb-0 [&_a]:underline [&_a]:decoration-ink-blue/40 [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:text-dragon-red">
+              <AboutBody />
+            </div>
 
             <div className="bg-ink-blue/5 p-8 rounded-2xl border-l-4 border-dragon-red">
               <h3 className="text-xl font-serif font-bold mb-2 text-ink-blue">
-                The "Patron" Portal Promise
+                {promiseTitle}
               </h3>
-              <p className="text-ink-blue/70 mb-4">
-                For parents, safety and education are paramount. All sessions
-                are monitored, age-appropriate, and designed to foster social
-                growth.
-              </p>
+              <p className="text-ink-blue/70 mb-4">{promiseBody}</p>
               <div className="flex gap-4">
                 <Link
                   to={`/${townSlug}/patrons`}
                   preventScrollReset
                   className="text-dragon-red font-bold hover:underline flex items-center gap-2"
                 >
-                  Read Parent Testimonials <span>→</span>
+                  {promiseButtonText} <span>→</span>
                 </Link>
               </div>
             </div>

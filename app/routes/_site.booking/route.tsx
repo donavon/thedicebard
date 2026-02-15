@@ -1,5 +1,21 @@
+import type { Route } from "./+types/route";
 import { SectionScrollRoute } from "~/features/home/components/section-scroll-route";
+import {
+  getAboutContent,
+  getDndInfoContent,
+  getPatronsContent,
+  getServicesContent,
+} from "~/content/loader.server";
 
-export default function BookingRoute() {
-  return <SectionScrollRoute sectionId="booking" />;
+export async function loader() {
+  return {
+    about: getAboutContent(),
+    dndInfo: getDndInfoContent(),
+    patrons: getPatronsContent(),
+    services: getServicesContent(),
+  };
+}
+
+export default function BookingRoute({ loaderData }: Route.ComponentProps) {
+  return <SectionScrollRoute sectionId="booking" cmsContent={loaderData} />;
 }

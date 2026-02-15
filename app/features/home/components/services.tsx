@@ -1,36 +1,16 @@
 import { Link, useLocation } from "react-router";
 import { getTownSlugFromPathname } from "~/utils/town";
+import type { ServicesContent } from "~/content/loader.server";
 
-export function Services() {
+type ServicesProps = {
+  content: ServicesContent;
+};
+
+export function Services({ content }: ServicesProps) {
   const { pathname } = useLocation();
   const townSlug = getTownSlugFromPathname(pathname);
 
-  const services = [
-    {
-      title: "Weekly Ongoing Campaigns",
-      price: "Start your Legend",
-      desc: "A long-running story for you and 5 friends. Design your characters, play weekly, and grow the campaign together over time.",
-      cta: "Start your Campaign",
-      highlight: false,
-      intent: "weekly",
-    },
-    {
-      title: "One-Offs & Parties",
-      price: "Epic in a Day",
-      desc: "A quick D&D one-shot to elevate a birthday or event. Choose from 13 crafted pre-built characters and tackle an epic story wrapped up in a single day.",
-      cta: "Book a Party",
-      highlight: true,
-      intent: "party",
-    },
-    {
-      title: "Classes & Workshops",
-      price: "Learn to Play",
-      desc: "'How to Play' sessions that teach the mechanics of the game, probability math, and acting skills for beginners. Perfect for new adventurers.",
-      cta: "Enroll Now",
-      highlight: false,
-      intent: "workshop",
-    },
-  ];
+  const { title, subtitle, items: services } = content;
 
   return (
     <section
@@ -56,10 +36,10 @@ export function Services() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-parchment">
-            The Adventure Menu
+            {title}
           </h2>
           <p className="text-xl text-parchment/70 max-w-2xl mx-auto">
-            Choose how you want to experience the magic of Dungeons & Dragons.
+            {subtitle}
           </p>
         </div>
 

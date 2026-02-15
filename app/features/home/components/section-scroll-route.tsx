@@ -3,12 +3,27 @@ import { useSearchParams } from "react-router";
 import { scrollToSection } from "~/utils/scroll";
 import { HomeView } from "~/features/home/home-view";
 import { getTownBySlug } from "~/utils/town";
+import type {
+  getAboutContent,
+  getDndInfoContent,
+  getPatronsContent,
+  getServicesContent,
+} from "~/content/loader.server";
 
 type SectionScrollRouteProps = {
   sectionId: string;
+  cmsContent: {
+    about: ReturnType<typeof getAboutContent>;
+    dndInfo: ReturnType<typeof getDndInfoContent>;
+    patrons: ReturnType<typeof getPatronsContent>;
+    services: ReturnType<typeof getServicesContent>;
+  };
 };
 
-export function SectionScrollRoute({ sectionId }: SectionScrollRouteProps) {
+export function SectionScrollRoute({
+  sectionId,
+  cmsContent,
+}: SectionScrollRouteProps) {
   const [searchParams] = useSearchParams();
   const bookingIntent = searchParams.get("intent");
 
@@ -36,5 +51,5 @@ export function SectionScrollRoute({ sectionId }: SectionScrollRouteProps) {
     }
   }, [bookingIntent, sectionId]);
 
-  return <HomeView town={getTownBySlug("default")} />;
+  return <HomeView town={getTownBySlug("default")} cmsContent={cmsContent} />;
 }

@@ -1,15 +1,31 @@
 import { useEffect } from "react";
 import type { MetaFunction } from "react-router";
+import type { Route } from "./+types/route";
 import { useParams, useSearchParams } from "react-router";
 import { scrollToSection } from "~/utils/scroll";
 import { HomeView } from "~/features/home/home-view";
 import { getTownBySlug } from "~/utils/town";
 import { PrivacyPage } from "~/features/legal/privacy-page";
 import { TermsPage } from "~/features/legal/terms-page";
+import {
+  getAboutContent,
+  getDndInfoContent,
+  getPatronsContent,
+  getServicesContent,
+} from "~/content/loader.server";
 
 const SECTION_IDS = new Set(["services", "about", "patrons", "booking", "faq"]);
 
-export default function TownSectionRoute() {
+export async function loader() {
+  return {
+    about: getAboutContent(),
+    dndInfo: getDndInfoContent(),
+    patrons: getPatronsContent(),
+    services: getServicesContent(),
+  };
+}
+
+export default function TownSectionRoute({ loaderData }: Route.ComponentProps) {
   const { town, section } = useParams();
   const [searchParams] = useSearchParams();
   const bookingIntent = searchParams.get("intent");
@@ -51,7 +67,7 @@ export default function TownSectionRoute() {
     return <TermsPage />;
   }
 
-  return <HomeView town={townData} />;
+  return <HomeView town={townData} cmsContent={loaderData} />;
 }
 
 export const meta: MetaFunction = ({ params }) => {
