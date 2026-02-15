@@ -13,7 +13,7 @@ export function loader({ request }: LoaderFunctionArgs) {
   const postsByUpdatedDate = [...posts].sort((a, b) => {
     const aLastmod = getValidatedBlogPostLastmod(a);
     const bLastmod = getValidatedBlogPostLastmod(b);
-    return bLastmod.localeCompare(aLastmod);
+    return bLastmod.localeCompare(aLastmod, "en");
   });
 
   const latestLastmod =

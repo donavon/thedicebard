@@ -30,8 +30,8 @@ export function BookingWidget() {
   const town = getTownBySlug(townSlug);
   const sortedCities = townPages
     .filter((page) => page.slug !== "home")
-    .map((page) => page.name)
-    .sort((a, b) => a.localeCompare(b));
+    .map(({name}) => name)
+    .sort((a, b) => a.localeCompare(b, "en"));
   const defaultCity =
     town.slug !== "home" && sortedCities.includes(town.name) ? town.name : "";
 
