@@ -1,6 +1,17 @@
 import { Link, useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
+import {
+  normalizeBlogImageUrl,
+  normalizeBlogImageUrlForDpr,
+} from "../data/blog-image-url";
 import { siteName, siteUrl } from "../data/site";
+
+const lineClampThree = {
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: 3,
+  display: "-webkit-box",
+  overflow: "hidden",
+} as const;
 
 function formatDate(value: string) {
   return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-US", {
@@ -61,27 +72,55 @@ export default function BlogIndex() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
-            <article key={post.slug} className="md:h-130">
+            <article key={post.slug} className="md:min-h-130">
               <Link
                 to={`/blog/${post.slug}`}
                 className="group flex h-full flex-col rounded-2xl border border-ink-blue/10 bg-white shadow-lg transition-transform duration-300 hover:-translate-y-1"
               >
-                <div className="relative h-48 w-full overflow-hidden rounded-t-2xl">
-                  <img
-                    src={post.imageUrl}
-                    alt={post.imageAlt}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
+                <div className="relative w-full shrink-0 overflow-hidden rounded-t-2xl aspect-[357/192]">
+                  <picture className="absolute inset-0 block h-full w-full">
+                    <source
+                      media="(min-width: 768px)"
+                      srcSet={`${normalizeBlogImageUrlForDpr(
+                        post.imageUrl,
+                        "cardDesktop",
+                        1
+                      )} 1x, ${normalizeBlogImageUrlForDpr(
+                        post.imageUrl,
+                        "cardDesktop",
+                        2
+                      )} 2x`}
+                    />
+                    <img
+                      src={normalizeBlogImageUrl(post.imageUrl, "cardMobile")}
+                      srcSet={`${normalizeBlogImageUrlForDpr(
+                        post.imageUrl,
+                        "cardMobile",
+                        1
+                      )} 1x, ${normalizeBlogImageUrlForDpr(
+                        post.imageUrl,
+                        "cardMobile",
+                        2
+                      )} 2x`}
+                      alt={post.imageAlt}
+                      className="absolute inset-0 block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </picture>
                 </div>
                 <div className="flex flex-1 flex-col p-6 gap-3">
                   <p className="text-sm uppercase tracking-wide text-ink-blue/60">
                     {formatDate(post.publishedDate)}
                   </p>
-                  <h2 className="text-2xl font-serif font-bold text-dragon-red">
+                  <h2
+                    className="text-2xl lg:text-xl xl:text-2xl leading-tight lg:leading-snug xl:leading-tight font-serif font-bold text-dragon-red"
+                    style={lineClampThree}
+                  >
                     {post.title}
                   </h2>
-                  <p className="text-ink-blue/75">{post.synopsis}</p>
+                  <p className="text-ink-blue/75" style={lineClampThree}>
+                    {post.synopsis}
+                  </p>
                   <div className="mt-auto flex flex-col gap-1">
                     <p className="text-sm font-semibold text-ink-blue/70">
                       By {post.author}

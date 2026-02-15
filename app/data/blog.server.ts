@@ -19,6 +19,32 @@ const isoDateSchema = z
     );
   }, "Expected YYYY-MM-DD");
 
+function isAllowedBlogImageHost(hostname: string) {
+  return (
+    hostname === "images.pexels.com" ||
+    hostname === "pexels.com" ||
+    hostname === "www.pexels.com" ||
+    hostname === "images.unsplash.com" ||
+    hostname === "unsplash.com" ||
+    hostname === "www.unsplash.com"
+  );
+}
+
+const imageUrlSchema = z.string().refine((value) => {
+  let parsed: URL;
+  try {
+    parsed = new URL(value);
+  } catch {
+    return false;
+  }
+
+  if (parsed.protocol !== "https:") {
+    return false;
+  }
+
+  return isAllowedBlogImageHost(parsed.hostname);
+}, "Use a URL from Pexels or Unsplash only.");
+
 const blogFrontmatterSchema = z.object({
   slug: z.string(),
   title: z.string(),
@@ -26,10 +52,9 @@ const blogFrontmatterSchema = z.object({
   author: z.string(),
   publishedDate: isoDateSchema,
   lastModified: isoDateSchema.optional(),
-  imageUrl: z.string(),
+  imageUrl: imageUrlSchema,
   imageAlt: z.string(),
   imageCreditName: z.string().optional().default(""),
-  imageCreditUrl: z.string().optional().default(""),
 });
 
 type ValidatedBlogPost = z.infer<typeof blogFrontmatterSchema>;

@@ -50,7 +50,10 @@ content:
         label: Image URL
         type: string
         required: true
-        description: "Absolute URL (https://...) or site-relative path (example: /blog/dnd-jargon.jpg)."
+        description: "Paste the URL from the browser address bar of an image page on Pexels or Unsplash."
+        pattern:
+          regex: "^https://(?:(?:www\\.)?pexels\\.com/|images\\.pexels\\.com/|(?:www\\.)?unsplash\\.com/|images\\.unsplash\\.com/).+"
+          message: "Use a URL from Pexels or Unsplash only."
       - name: imageAlt
         label: Image Alt Text
         type: string
@@ -61,11 +64,6 @@ content:
         type: string
         required: false
         description: "Optional photographer/source name shown below the image."
-      - name: imageCreditUrl
-        label: Image Credit URL
-        type: string
-        required: false
-        description: "Optional source link for the image credit."
       - name: body
         label: Post Body
         type: code

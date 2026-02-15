@@ -4,6 +4,10 @@ import { BlogPostJsonLd } from "../components/blog-post-json-ld";
 import { BlogCta } from "../components/blog-cta";
 import { blogMdxComponents } from "../components/blog-mdx";
 import { getBlogContentComponentBySlug } from "../data/blog-content";
+import {
+  getBlogImageSourceUrl,
+  normalizeBlogImageUrl,
+} from "../data/blog-image-url";
 import { siteName, siteUrl } from "../data/site";
 
 function formatDate(value: string) {
@@ -19,7 +23,7 @@ type BlogPostLoaderData = {
     author: string;
     imageAlt: string;
     imageCreditName: string;
-    imageCreditUrl: string;
+    imageSourceUrl: string;
     imageUrl: string;
     lastModified?: string;
     publishedDate: string;
@@ -43,8 +47,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Response("Not Found", { status: 404 });
   }
 
+  const normalizedPost = {
+    ...post,
+    imageSourceUrl: getBlogImageSourceUrl(post.imageUrl),
+    imageUrl: normalizeBlogImageUrl(post.imageUrl, "post"),
+  };
+
   return {
-    post,
+    post: normalizedPost,
     relatedPosts: getValidatedBlogPosts()
       .filter((item) => item.slug !== post.slug)
       .map((item) => ({ slug: item.slug, title: item.title })),
@@ -125,11 +135,11 @@ export default function BlogPost() {
             className="h-full w-full object-cover"
           />
         </div>
-        {post.imageCreditName && post.imageCreditUrl ? (
+        {post.imageCreditName ? (
           <p className="mt-3 text-xs text-ink-blue/60">
             Photo by{" "}
             <a
-              href={post.imageCreditUrl}
+              href={post.imageSourceUrl}
               className="underline hover:text-ink-blue"
               rel="noreferrer"
               target="_blank"

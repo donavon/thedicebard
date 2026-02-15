@@ -6,6 +6,7 @@ import path from "node:path";
 import sharp from "sharp";
 import type { LoaderFunctionArgs } from "react-router";
 import openSansRegularTtf from "../assets/fonts/open-sans-regular.ttf";
+import { normalizeBlogImageUrl } from "../data/blog-image-url";
 import { getValidatedBlogPostBySlug } from "../data/blog.server";
 
 const ogWidth = 1200;
@@ -254,9 +255,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   }
 
   const origin = new URL(request.url).origin;
-  const imageUrl = post.imageUrl.startsWith("http")
-    ? post.imageUrl
-    : new URL(post.imageUrl, origin).toString();
+  const normalizedImageUrl = normalizeBlogImageUrl(post.imageUrl, "og");
+  const imageUrl = normalizedImageUrl.startsWith("http")
+    ? normalizedImageUrl
+    : new URL(normalizedImageUrl, origin).toString();
   const etag = buildEtag(`${ogRenderVersion}|${post.title}|${imageUrl}`);
 
   if (request.headers.get("if-none-match") === etag) {
