@@ -10,10 +10,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { Header } from "./components/header";
-import { Footer } from "./components/footer";
 import { GoogleAnalytics } from "./components/google-analytics";
-import { JsonLd } from "./components/json-ld";
 import ogImage from "./assets/images/og-image.png";
 import {
   defaultTitle,
@@ -101,6 +98,18 @@ export function links(): ReturnType<Route.LinksFunction> {
       rel: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;600&display=swap",
     },
+    {
+      rel: "alternate",
+      type: "application/rss+xml",
+      title: `${siteName} RSS Feed`,
+      href: "/rss.xml",
+    },
+    {
+      rel: "alternate",
+      type: "application/atom+xml",
+      title: `${siteName} Atom Feed`,
+      href: "/atom.xml",
+    },
     { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
   ];
 }
@@ -120,12 +129,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <GoogleAnalytics />
       </head>
       <body>
-        <div className="font-sans antialiased text-gray-900 bg-texture-parchment min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
-        <JsonLd />
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>

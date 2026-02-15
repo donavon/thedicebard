@@ -1,5 +1,7 @@
 export const siteName = "The Dice Bard";
 export const siteUrl = "https://thedicebard.com";
+export const siteLocale = "en-US";
+export const siteTimeZone = "America/New_York";
 export const siteTitle =
   "D&D Party Games in Essex & Passaic County, NJ | The Dice Bard";
 export const siteDescription =

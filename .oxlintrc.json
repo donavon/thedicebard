@@ -16,6 +16,7 @@
     "react/button-has-type": "error",
     "unicorn/prefer-number-properties": "error",
     "import/no-duplicates": "error",
+    "import/no-relative-parent-imports": "error",
     "import/no-empty-named-blocks": "error",
     "no-array-constructor": "error",
     "no-else-return": "error",

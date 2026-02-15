@@ -20,14 +20,16 @@ export type TownPageData = {
   cityOptions: string[];
 };
 
-const baseFaqItems: TownFaqItem[] = [
+export const baseFaqItems: TownFaqItem[] = [
   {
     question: "What exactly is D&D?",
     answer: (
       <>
-        Think of it as a <strong>collaborative story</strong> where kids are the
-        main characters. The Dungeon Master describes the world, the players
-        decide what to do, and dice tell us if their plans succeed.
+        Think of it as a <strong>collaborative campfire story</strong> where
+        kids are the main characters. As the Dungeon Master, I describe the
+        world and the monsters, players decide what to do next, and dice decide
+        whether daring plans succeed. It is heavy on imagination, light on
+        screen time, and great for teamwork.
       </>
     ),
   },
@@ -35,8 +37,10 @@ const baseFaqItems: TownFaqItem[] = [
     question: 'What kind of "loot" do we need to provide?',
     answer: (
       <>
-        Just a surface like a dining table or kitchen island. We bring{" "}
-        <strong>dice, character sheets, maps, and miniatures</strong>.
+        Honestly, just a surface. A{" "}
+        <strong>dining table, kitchen island, or outdoor picnic table</strong>{" "}
+        works great. I bring the hoard: dice, character sheets, maps, and
+        miniatures. No expensive manuals required on your end.
       </>
     ),
   },
@@ -45,7 +49,8 @@ const baseFaqItems: TownFaqItem[] = [
     answer: (
       <>
         Absolutely. Sessions are <strong>age-appropriate</strong>, creative, and
-        focused on teamwork and problem-solving.
+        focused on teamwork and problem-solving. Think PG-rated adventures like{" "}
+        <em>The Hobbit</em> or <em>Stranger Things</em> (minus the scary bits).
       </>
     ),
   },
@@ -60,7 +65,8 @@ const baseFaqItems: TownFaqItem[] = [
   },
   {
     question: "Does it have to be a one-time thing?",
-    answer: "Not at all. We run both one-shot parties and ongoing campaigns.",
+    answer:
+      "Not at all. We run one-shot parties and ongoing campaigns, so if kids catch the D&D bug we can continue their story weekly or monthly.",
   },
   {
     question: "D&D for a birthday party?",
@@ -70,12 +76,17 @@ const baseFaqItems: TownFaqItem[] = [
   {
     question: "What if my child has never played before?",
     answer:
-      "Perfect. We teach the basics quickly and make sure everyone feels confident before the adventure starts.",
+      'Perfect. Most players start as "Level 1" in real life. We teach the basics quickly, and kids are usually casting spells and dodging traps within about 20 minutes.',
   },
   {
     question: "Where do you offer your D&D party experience?",
     answer:
       "We serve families across Essex & Passaic County, including Montclair, Glen Ridge, Bloomfield, Nutley, Verona, Cedar Grove, Clifton, and nearby towns.",
+  },
+  {
+    question: "Any pro tips for parents?",
+    answer:
+      'Having snacks ("healing potions" and "rations") on hand is always a hit. Adventuring is hungry work.',
   },
   {
     question: "Why is D&D popular again?",
@@ -148,7 +159,7 @@ function buildTownFaqItems(name: string): TownFaqItem[] {
   return [...items.slice(offset), ...items.slice(0, offset)];
 }
 
-const defaultTown: TownPageData = {
+export const defaultTown: TownPageData = {
   slug: "home",
   name: "Northern New Jersey",
   heroTitle: "Your Next Great Adventure Starts Here",
@@ -161,38 +172,6 @@ const defaultTown: TownPageData = {
     "We serve families across New Jersey’s Essex and Passaic County, including Montclair, Glen Ridge, Bloomfield, Nutley, Verona, Cedar Grove, Clifton, and nearby towns.",
   faqTitle,
   faqItems: baseFaqItems,
-  cityOptions: defaultCityOptions,
-};
-
-const glenRidge: TownPageData = {
-  slug: "glenridge",
-  name: "Glen Ridge",
-  heroTitle: "D&D Party Games in Glen Ridge",
-  heroTagline:
-    "Professional Dungeons & Dragons campaigns, parties, and workshops in Glen Ridge.",
-  metaTitle: "D&D Party Games in Glen Ridge, NJ | The Dice Bard",
-  metaDescription:
-    "D&D party games, campaigns, and workshops for kids in Glen Ridge, NJ. Mobile dungeon master services for birthdays, parties, and ongoing adventures.",
-  serviceAreaCopy:
-    "We serve families in Glen Ridge and nearby towns across Essex & Passaic County.",
-  faqTitle,
-  faqItems: buildTownFaqItems("Glen Ridge"),
-  cityOptions: defaultCityOptions,
-};
-
-const montclair: TownPageData = {
-  slug: "montclair",
-  name: "Montclair",
-  heroTitle: "D&D Party Games in Montclair",
-  heroTagline:
-    "Professional Dungeons & Dragons campaigns, parties, and workshops in Montclair.",
-  metaTitle: "D&D Party Games in Montclair, NJ | The Dice Bard",
-  metaDescription:
-    "D&D party games, campaigns, and workshops for kids in Montclair, NJ. Mobile dungeon master services for birthdays, parties, and ongoing adventures.",
-  serviceAreaCopy:
-    "We serve families in Montclair and nearby towns across Essex & Passaic County.",
-  faqTitle,
-  faqItems: buildTownFaqItems("Montclair"),
   cityOptions: defaultCityOptions,
 };
 
@@ -213,29 +192,6 @@ function createTownPageData(name: string): TownPageData {
   };
 }
 
-const additionalTownNames = defaultCityOptions.filter(
-  (name) => name !== "Glen Ridge" && name !== "Montclair"
-);
+const additionalTowns = defaultCityOptions.map(createTownPageData);
 
-const additionalTowns = additionalTownNames.map(createTownPageData);
-
-const townPages: TownPageData[] = [
-  defaultTown,
-  glenRidge,
-  montclair,
-  ...additionalTowns,
-];
-
-function getTownBySlug(slug: string) {
-  const normalized = slug.toLowerCase();
-  return townPages.find((town) => town.slug === normalized) ?? defaultTown;
-}
-
-export {
-  baseFaqItems,
-  defaultTown,
-  glenRidge,
-  montclair,
-  townPages,
-  getTownBySlug,
-};
+export const townPages: TownPageData[] = [defaultTown, ...additionalTowns];

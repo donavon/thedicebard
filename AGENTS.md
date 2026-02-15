@@ -6,8 +6,11 @@
 - Prefer named exports. Use `export default` only when required for routing.
 - Keep modules small and single-purpose.
 - Prefer function declarations over arrow functions, except for callbacks.
+- Prefer inline exports (e.g., `export function foo`) over grouped exports at the bottom for same-file declarations.
 - Use `type` instead of `interface`.
 - Use double quotes for strings.
+- Prefer `~/...` path aliases for app imports instead of `../...` relative paths.
+- Never import a route module from another route module; move shared logic/UI into non-route modules (e.g. `features`, `components`, `utils`).
 
 ## Style & Quality
 
