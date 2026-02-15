@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { blogPosts } from "./blog";
+import { rawBlogPosts } from "./blog";
+import { getBlogSlugFromModule } from "./blog-modules";
 
 const isoDateSchema = z
   .string()
@@ -18,7 +19,7 @@ const isoDateSchema = z
     );
   }, "Expected YYYY-MM-DD");
 
-const blogPostSchema = z.object({
+const blogFrontmatterSchema = z.object({
   slug: z.string(),
   title: z.string(),
   synopsis: z.string(),
@@ -27,18 +28,45 @@ const blogPostSchema = z.object({
   lastModified: isoDateSchema.optional(),
   imageUrl: z.string(),
   imageAlt: z.string(),
-  imageCreditName: z.string(),
-  imageCreditUrl: z.string(),
+  imageCreditName: z.string().optional().default(""),
+  imageCreditUrl: z.string().optional().default(""),
 });
 
-type ValidatedBlogPost = z.infer<typeof blogPostSchema>;
+type ValidatedBlogPost = z.infer<typeof blogFrontmatterSchema>;
+
+function getValidatedBlogPost(rawPost: {
+  fileSlug: string;
+  frontmatter: unknown;
+}) {
+  const pathname = `../content/blog/${rawPost.fileSlug}.mdx`;
+  const slugFromFrontmatter = getBlogSlugFromModule(
+    { frontmatter: rawPost.frontmatter },
+    pathname
+  );
+  const slugFromFilename = rawPost.fileSlug;
+
+  if (slugFromFrontmatter !== slugFromFilename) {
+    throw new Error(
+      `Blog slug mismatch in '${pathname}'. Frontmatter slug '${slugFromFrontmatter}' must match filename slug '${slugFromFilename}'.`
+    );
+  }
+
+  return blogFrontmatterSchema.parse(rawPost.frontmatter);
+}
+
+const validatedBlogPosts: ValidatedBlogPost[] = rawBlogPosts
+  .map((rawPost) => getValidatedBlogPost(rawPost))
+  .sort(
+    (a, b) =>
+      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+  );
 
 function getValidatedBlogPosts() {
-  return blogPosts.map((post) => blogPostSchema.parse(post));
+  return validatedBlogPosts;
 }
 
 function getValidatedBlogPostBySlug(slug: string) {
-  return getValidatedBlogPosts().find((post) => post.slug === slug);
+  return validatedBlogPosts.find((post) => post.slug === slug);
 }
 
 function getValidatedBlogPostLastmod(

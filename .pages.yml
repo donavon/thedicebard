@@ -4,7 +4,7 @@ content:
     type: collection
     path: app/content/blog
     format: yaml-frontmatter
-    filename: "{primary}.mdx"
+    filename: "{fields.slug}.mdx"
     view:
       fields: [title, author, publishedDate, lastModified]
       primary: title
@@ -17,41 +17,59 @@ content:
         label: Title
         type: string
         required: true
+        description: "Post headline shown on blog cards, article page, and SEO title."
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+        description: "URL-safe id used in the path. Example: dnd-resurgence-stranger-things"
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: "Use lowercase letters, numbers, and hyphens only (example: session-zero-basics)."
       - name: synopsis
         label: Synopsis
         type: text
         required: true
+        description: "One or two sentences for blog cards and meta description."
       - name: author
         label: Author
         type: string
         required: true
+        description: "Display name shown under the post title."
       - name: publishedDate
         label: Published Date
         type: date
         required: true
+        description: "Original publish date used for ordering and sitemap lastmod fallback."
       - name: lastModified
         label: Last Modified
         type: date
         required: false
+        description: "Optional update date (YYYY-MM-DD). Leave blank unless content changed."
       - name: imageUrl
         label: Image URL
         type: string
         required: true
+        description: "Absolute URL (https://...) or site-relative path (example: /blog/dnd-jargon.jpg)."
       - name: imageAlt
         label: Image Alt Text
         type: string
         required: true
+        description: "Short, specific description for accessibility."
       - name: imageCreditName
         label: Image Credit Name
         type: string
-        required: true
+        required: false
+        description: "Optional photographer/source name shown below the image."
       - name: imageCreditUrl
         label: Image Credit URL
         type: string
-        required: true
+        required: false
+        description: "Optional source link for the image credit."
       - name: body
         label: Post Body
         type: code
         options:
           language: markdown
         required: true
+        description: "Markdown/MDX content. Use <BlogCta /> where you want the inline CTA."
