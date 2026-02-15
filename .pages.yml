@@ -166,34 +166,34 @@ content:
         required: true
       - name: items
         label: Service Cards
-        type: list
-        object:
-          fields:
-            - name: title
-              label: Title
-              type: string
-              required: true
-            - name: price
-              label: Price/Tagline
-              type: string
-              required: true
-            - name: desc
-              label: Description
-              type: text
-              required: true
-            - name: cta
-              label: CTA Label
-              type: string
-              required: true
-            - name: highlight
-              label: Highlight Card?
-              type: boolean
-              default: false
-            - name: intent
-              label: Booking Intent Slug
-              type: string
-              required: true
-              description: "Used in URL query param (e.g. ?intent=party)"
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: price
+            label: Price/Tagline
+            type: string
+            required: true
+          - name: desc
+            label: Description
+            type: text
+            required: true
+          - name: cta
+            label: CTA Label
+            type: string
+            required: true
+          - name: highlight
+            label: Highlight Card?
+            type: boolean
+            default: false
+          - name: intent
+            label: Booking Intent Slug
+            type: string
+            required: true
+            description: "Used in URL query param (e.g. ?intent=party)"
 
   - name: dndInfo
     label: What is D&D
@@ -219,17 +219,17 @@ content:
         required: true
       - name: benefits
         label: Benefits List
-        type: list
-        object:
-          fields:
-            - name: title
-              label: Title
-              type: string
-              required: true
-            - name: desc
-              label: Description
-              type: string
-              required: true
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: desc
+            label: Description
+            type: string
+            required: true
 
   - name: patrons
     label: Patron Portal
@@ -243,17 +243,17 @@ content:
         required: true
       - name: testimonials
         label: Testimonials
-        type: list
-        object:
-          fields:
-            - name: quote
-              label: Quote
-              type: text
-              required: true
-            - name: author
-              label: Author/Attribution
-              type: string
-              required: true
+        type: object
+        list: true
+        fields:
+          - name: quote
+            label: Quote
+            type: text
+            required: true
+          - name: author
+            label: Author/Attribution
+            type: string
+            required: true
       - name: resourcesTitle
         label: Resources Title
         type: string
