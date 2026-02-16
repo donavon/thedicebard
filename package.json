@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run ci && node scripts/write-build-time.mjs && react-router build",
+    "build": "node scripts/write-build-time.mjs && npm run ci && react-router build",
     "dev": "node scripts/write-build-time.mjs && react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "lint": "oxlint --deny-warnings .",
