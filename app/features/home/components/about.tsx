@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router";
+import { Section } from "~/components/section";
 import AboutBody from "~/content/about.mdx";
 import rollickHeadshot from "~/assets/images/rollick-headshot-web.webp";
 import { getTownSlugFromPathname } from "~/utils/town";
@@ -16,8 +17,8 @@ export function About({ content }: Props) {
     content;
 
   return (
-    <section
-      id="about"
+    <Section
+      sectionId="about"
       className="py-24 px-4 bg-parchment text-ink-blue overflow-x-hidden md:overflow-x-visible"
     >
       <div className="max-w-6xl mx-auto">
@@ -64,6 +65,6 @@ export function About({ content }: Props) {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

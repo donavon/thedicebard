@@ -10,7 +10,10 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { ErrorPage } from "./components/error-page";
 import { GoogleAnalytics } from "./components/google-analytics";
+import { NotFound } from "./components/not-found";
+import { SiteLayout } from "./components/site-layout";
 import ogImage from "./assets/images/og-image.png";
 import {
   defaultTitle,
@@ -25,7 +28,9 @@ const title = defaultTitle;
 export function loader({ request }: Route.LoaderArgs) {
   const origin = new URL(request.url).origin;
 
-  return { origin };
+  return {
+    origin,
+  };
 }
 
 const sectionRoutes = new Set([
@@ -143,15 +148,18 @@ export default function App() {
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const isRouteError = isRouteErrorResponse(error);
-  const message = isRouteError
-    ? error.status === 404
-      ? "404"
-      : "Error"
-    : "Oops!";
+
+  if (isRouteError && error.status === 404) {
+    return (
+      <SiteLayout>
+        <NotFound />
+      </SiteLayout>
+    );
+  }
+
+  const message = isRouteError ? "Error" : "Oops!";
   const details = isRouteError
-    ? error.status === 404
-      ? "The requested page could not be found."
-      : error.statusText || "An unexpected error occurred."
+    ? error.statusText || "An unexpected error occurred."
     : import.meta.env.DEV && error instanceof Error
       ? error.message
       : "An unexpected error occurred.";
@@ -161,14 +169,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       : undefined;
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <SiteLayout>
+      <ErrorPage message={message} details={details} stack={stack} />
+    </SiteLayout>
   );
 }

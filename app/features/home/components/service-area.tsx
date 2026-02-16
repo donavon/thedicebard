@@ -1,3 +1,4 @@
+import { Section } from "~/components/section";
 import mapImage from "~/assets/images/nj-map.webp";
 
 type ServiceAreaProps = {
@@ -10,7 +11,10 @@ export function ServiceArea({ copy }: ServiceAreaProps) {
     "We serve families across New Jersey’s Essex and Passaic County, including Montclair, Glen Ridge, Bloomfield, Nutley, Verona, Cedar Grove, Clifton, and nearby towns.";
 
   return (
-    <section className="overflow-x-hidden px-4 pb-24 pt-8 sm:px-6 lg:px-10 text-ink-blue">
+    <Section
+      sectionId="service-area"
+      className="overflow-x-hidden px-4 pb-24 pt-8 sm:px-6 lg:px-10 text-ink-blue"
+    >
       <div className="mx-auto w-full max-w-6xl">
         <div className="flex justify-center mb-6">
           <span className="h-1 w-24 bg-dragon-red/50 rounded-full"></span>
@@ -52,6 +56,6 @@ export function ServiceArea({ copy }: ServiceAreaProps) {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

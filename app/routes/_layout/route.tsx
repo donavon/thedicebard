@@ -1,14 +1,16 @@
-import type { Route } from "./+types/route";
-import { SectionScrollRoute } from "~/features/home/components/section-scroll-route";
+import { Outlet } from "react-router";
 import {
   getAboutContent,
   getDndInfoContent,
+  getFooterContent,
   getPatronsContent,
   getServicesContent,
 } from "~/content/loader.server";
+import { SiteLayout } from "~/components/site-layout";
 
 export async function loader() {
   return {
+    footerContent: getFooterContent(),
     about: getAboutContent(),
     dndInfo: getDndInfoContent(),
     patrons: getPatronsContent(),
@@ -16,6 +18,10 @@ export async function loader() {
   };
 }
 
-export default function PatronsRoute({ loaderData }: Route.ComponentProps) {
-  return <SectionScrollRoute sectionId="patrons" cmsContent={loaderData} />;
+export default function SiteLayoutRoute() {
+  return (
+    <SiteLayout>
+      <Outlet />
+    </SiteLayout>
+  );
 }

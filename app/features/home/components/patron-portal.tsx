@@ -1,3 +1,4 @@
+import { Section } from "~/components/section";
 import type { PatronsContent } from "~/content/loader.server";
 
 type PatronPortalProps = {
@@ -17,7 +18,10 @@ export function PatronPortal({ content }: PatronPortalProps) {
   } = content;
 
   return (
-    <section id="patrons" className="py-20 px-4 bg-ink-blue text-parchment">
+    <Section
+      sectionId="patrons"
+      className="py-20 px-4 bg-ink-blue text-parchment"
+    >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-5xl font-serif font-bold text-center mb-12">
           {title}
@@ -58,6 +62,6 @@ export function PatronPortal({ content }: PatronPortalProps) {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

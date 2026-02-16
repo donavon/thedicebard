@@ -51,5 +51,5 @@ export function SectionScrollRoute({
     }
   }, [bookingIntent, sectionId]);
 
-  return <HomeView town={getTownBySlug("default")} cmsContent={cmsContent} />;
+  return <HomeView town={getTownBySlug("home")} cmsContent={cmsContent} />;
 }

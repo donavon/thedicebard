@@ -7,3 +7,16 @@
 /build/
 /.netlify/
 app/data/build-time.ts
+screenshots/
+
+# --- ROO / AI Memory Strategy ---
+# 1. Ignore everything in the plans folder
+plans/**/*
+
+# 2. Allow the main memory bank
+!plans/memory_bank.md
+
+# 3. Allow the completed directory and its markdown files
+!plans/completed/
+!plans/completed/*.md
+!plans/completed/.gitkeep

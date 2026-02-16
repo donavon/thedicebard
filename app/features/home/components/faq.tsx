@@ -1,5 +1,7 @@
 import type { TownFaqItem } from "~/data/towns";
+import { Section } from "~/components/section";
 import { ParchmentCard } from "~/components/parchment-card";
+import ReactMarkdown from "react-markdown";
 
 type FaqProps = {
   title: string;
@@ -12,8 +14,8 @@ export function Faq({ title, items }: FaqProps) {
   }
 
   return (
-    <section
-      id="faq"
+    <Section
+      sectionId="faq"
       className="px-4 pb-24 pt-10 sm:px-6 lg:px-10 text-ink-blue"
     >
       <div className="pt-12">
@@ -49,15 +51,14 @@ export function Faq({ title, items }: FaqProps) {
                     </span>
                   </span>
                 </summary>
-                <div
-                  className="text-[1.05rem] leading-relaxed text-ink-blue/95 max-w-prose [&>p:first-child]:mt-0"
-                  dangerouslySetInnerHTML={{ __html: item.answerHtml }}
-                />
+                <div className="text-[1.05rem] leading-relaxed text-ink-blue/95 max-w-prose [&>p:first-child]:mt-0 [&>p]:mt-2 [&>strong]:font-semibold">
+                  <ReactMarkdown>{item.answerMarkdown}</ReactMarkdown>
+                </div>
               </details>
             ))}
           </div>
         </ParchmentCard>
       </div>
-    </section>
+    </Section>
   );
 }

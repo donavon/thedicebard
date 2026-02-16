@@ -4,7 +4,7 @@ import {
   getValidatedBlogPosts,
 } from "~/utils/blog.server";
 import { buildTime } from "~/data/build-time";
-import { defaultTown, townPages } from "~/data/towns";
+import { townPages } from "~/data/towns";
 import { formatIsoDateTimeInSiteTimeZone } from "~/utils/site-time";
 import { renderXmlDocument, xml } from "~/utils/xml";
 
@@ -48,8 +48,8 @@ export function loader({ request }: LoaderFunctionArgs) {
     blogPostLastmods.length > 0 ? blogPostLastmods.sort().at(-1) : undefined;
 
   const staticUrls: SitemapUrl[] = [
-    { loc: `${origin}/${defaultTown.slug}/privacy`, lastmod: nonBlogLastmod },
-    { loc: `${origin}/${defaultTown.slug}/terms`, lastmod: nonBlogLastmod },
+    { loc: `${origin}/privacy`, lastmod: nonBlogLastmod },
+    { loc: `${origin}/terms`, lastmod: nonBlogLastmod },
     { loc: `${origin}/blog`, lastmod: blogIndexLastmod },
   ];
 

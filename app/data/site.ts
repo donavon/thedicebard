@@ -1,4 +1,4 @@
-import { getSiteConfig } from "~/content/loader.server";
+import { getSiteConfig } from "~/content/site-config";
 
 const site = getSiteConfig();
 

@@ -288,11 +288,11 @@ content:
       - name: introQuote
         label: Intro Quote
         type: string
-        required: true
+        required: false
       - name: introParagraph2
         label: Intro Paragraph 2
         type: text
-        required: true
+        required: false
       - name: benefits
         label: Benefits List
         type: object

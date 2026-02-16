@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router";
+import { Section } from "~/components/section";
 import { getTownSlugFromPathname } from "~/utils/town";
 import type { ServicesContent } from "~/content/loader.server";
 
@@ -13,8 +14,8 @@ export function Services({ content }: ServicesProps) {
   const { title, subtitle, items: services } = content;
 
   return (
-    <section
-      id="services"
+    <Section
+      sectionId="services"
       className="py-24 px-4 bg-ink-blue text-parchment relative overflow-hidden"
     >
       {/* Background decoration */}
@@ -82,6 +83,6 @@ export function Services({ content }: ServicesProps) {
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

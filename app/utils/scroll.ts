@@ -3,6 +3,7 @@ import type { MouseEvent } from "react";
 type ScrollOptions = {
   behavior?: ScrollBehavior;
   offset?: number;
+  onComplete?: () => void;
 };
 
 function getHeaderOffset() {
@@ -17,11 +18,28 @@ export function scrollToSection(id: string, options: ScrollOptions = {}) {
     return;
   }
 
-  const { behavior = "smooth", offset = getHeaderOffset() } = options;
+  const {
+    behavior = "smooth",
+    offset = getHeaderOffset(),
+    onComplete,
+  } = options;
   const targetTop = target.getBoundingClientRect().top + window.scrollY;
   const top = Math.max(0, targetTop - offset);
 
   window.scrollTo({ top, behavior });
+
+  // If onComplete callback provided, detect when scroll ends
+  if (onComplete) {
+    const checkScrollEnd = () => {
+      const currentScroll = window.scrollY;
+      if (Math.abs(currentScroll - top) < 5) {
+        onComplete();
+      } else {
+        requestAnimationFrame(checkScrollEnd);
+      }
+    };
+    requestAnimationFrame(checkScrollEnd);
+  }
 }
 
 export function handleHashLinkClick(event: MouseEvent<HTMLAnchorElement>) {

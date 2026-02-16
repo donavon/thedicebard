@@ -1,5 +1,3 @@
-import { micromark } from "micromark";
-
 export function resolveRawText(value: unknown, sourcePath: string) {
   if (typeof value === "string") {
     return value;
@@ -18,8 +16,4 @@ export function resolveRawText(value: unknown, sourcePath: string) {
   throw new Error(
     `Invalid raw import from ${sourcePath}. Expected string, received '${typeof value}'.`
   );
-}
-
-export function renderMarkdown(source: unknown, sourcePath: string) {
-  return micromark(resolveRawText(source, sourcePath));
 }

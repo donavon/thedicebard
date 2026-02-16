@@ -7,7 +7,9 @@
     "dev": "node scripts/write-build-time.mjs && react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "lint": "oxlint --deny-warnings .",
+    "lint:fix": "oxlint --fix .",
     "format": "oxfmt .",
+    "fix": "npm run format && npm run lint:fix",
     "format:check": "oxfmt --check .",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -22,6 +24,7 @@
     "isbot": "^5.1.31",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-markdown": "^10.1.0",
     "react-router": "^7.13.0",
     "sharp": "^0.34.5",
     "zod": "^4.3.6"

@@ -1,26 +1,16 @@
 import { z } from "zod";
 import { replaceTokens } from "./tokens.server";
-import { frontmatter as siteFrontmatter } from "~/content/site.mdx";
+import { getSiteConfig } from "./site-config";
+import type { SiteConfig } from "./site-config";
+
+export { getSiteConfig };
+export type { SiteConfig };
+
 import { frontmatter as aboutFrontmatter } from "~/content/about.mdx";
 import { frontmatter as dndInfoFrontmatter } from "~/content/dnd-info.mdx";
 import { frontmatter as servicesFrontmatter } from "~/content/services.mdx";
 import { frontmatter as patronsFrontmatter } from "~/content/patrons.mdx";
 import { frontmatter as footerFrontmatter } from "~/content/footer.mdx";
-
-const SiteConfigSchema = z.object({
-  siteName: z.string(),
-  siteUrl: z.string(),
-  siteLocale: z.string().default("en-US"),
-  siteTimeZone: z.string().default("America/New_York"),
-  siteTitle: z.string(),
-  siteDescription: z.string(),
-  ownerName: z.string(),
-  contactName: z.string(),
-  contactEmail: z.string(),
-  contactPhone: z.string().default(""),
-});
-
-export type SiteConfig = z.infer<typeof SiteConfigSchema>;
 
 const AboutFrontmatterSchema = z.object({
   title: z.string().default("About the Dungeon Master"),
@@ -65,8 +55,8 @@ const InfoBenefitSchema = z.object({
 const InfoFrontmatterSchema = z.object({
   title: z.string(),
   introParagraph1: z.string(),
-  introQuote: z.string(),
-  introParagraph2: z.string(),
+  introQuote: z.string().optional(),
+  introParagraph2: z.string().optional(),
   benefits: z.array(InfoBenefitSchema),
 });
 
@@ -99,10 +89,6 @@ const FooterFrontmatterSchema = z.object({
 });
 
 export type FooterContent = z.infer<typeof FooterFrontmatterSchema>;
-
-export function getSiteConfig(): SiteConfig {
-  return SiteConfigSchema.parse(siteFrontmatter);
-}
 
 export function getAboutContent(): AboutContent {
   return replaceTokens(AboutFrontmatterSchema.parse(aboutFrontmatter));

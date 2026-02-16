@@ -1,4 +1,4 @@
-import { getSiteConfig } from "./loader.server";
+import { getSiteConfig } from "./site-config";
 
 /**
  * Token dictionary available in any CMS string.

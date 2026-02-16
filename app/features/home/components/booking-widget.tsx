@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router";
+import { Section } from "~/components/section";
 import { townPages } from "~/data/towns";
 import { getTownBySlug, getTownSlugFromPathname } from "~/utils/town";
 
@@ -30,7 +31,7 @@ export function BookingWidget() {
   const town = getTownBySlug(townSlug);
   const sortedCities = townPages
     .filter((page) => page.slug !== "home")
-    .map(({name}) => name)
+    .map(({ name }) => name)
     .sort((a, b) => a.localeCompare(b, "en"));
   const defaultCity =
     town.slug !== "home" && sortedCities.includes(town.name) ? town.name : "";
@@ -111,7 +112,7 @@ export function BookingWidget() {
   }
 
   return (
-    <section id="booking" className="py-16 px-4 bg-parchment sm:py-24">
+    <Section sectionId="booking" className="py-16 px-4 bg-parchment sm:py-24">
       <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden border border-ink-blue/10 flex flex-col md:flex-row">
         <div className="bg-ink-blue text-parchment px-6 py-10 sm:p-12 md:w-1/3 flex flex-col justify-center">
           <h3 className="text-3xl font-serif font-bold mb-4">
@@ -286,6 +287,6 @@ export function BookingWidget() {
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

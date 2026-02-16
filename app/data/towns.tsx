@@ -1,8 +1,8 @@
 import { faqTitle } from "./site";
-import { getFaqMarkdownItems, renderFaqMarkdown } from "~/utils/faq";
+import { getFaqMarkdownItems } from "~/utils/faq";
 
 export type TownFaqItem = {
-  answerHtml: string;
+  answerMarkdown: string;
   id: string;
   question: string;
 };
@@ -56,9 +56,7 @@ function createTownFaqItemFromMarkdown(
   townContext: { name: string; slug: string }
 ): TownFaqItem {
   return {
-    answerHtml: renderFaqMarkdown(
-      applyFaqTownTokens(item.answerMarkdown, townContext)
-    ),
+    answerMarkdown: applyFaqTownTokens(item.answerMarkdown, townContext),
     id: item.id,
     question: applyFaqTownTokens(item.question, townContext),
   };
@@ -94,9 +92,7 @@ function buildTownFaqItems(name: string): TownFaqItem[] {
     if (item.id === "service-area") {
       return {
         ...createTownFaqItemFromMarkdown(item, townContext),
-        answerHtml: renderFaqMarkdown(
-          `Yes. We bring the full D&D party experience to homes and venues in ${name}.`
-        ),
+        answerMarkdown: `Yes. We bring the full D&D party experience to homes and venues in ${name}.`,
         question: `Do you offer D&D party games in ${name}?`,
       };
     }
@@ -105,16 +101,14 @@ function buildTownFaqItems(name: string): TownFaqItem[] {
 
   items.push(
     {
-      answerHtml: renderFaqMarkdown(
-        "Most parties run 2-3 hours, and we can customize the length for your event."
-      ),
+      answerMarkdown:
+        "Most parties run 2-3 hours, and we can customize the length for your event.",
       id: `session-length-${slug}`,
       question: `How long is a typical ${name} session?`,
     },
     {
-      answerHtml: renderFaqMarkdown(
-        "Most groups are ages 9-14, but we tailor every adventure to the group's comfort level."
-      ),
+      answerMarkdown:
+        "Most groups are ages 9-14, but we tailor every adventure to the group's comfort level.",
       id: `age-range-${slug}`,
       question: `What ages do you recommend for a ${name} D&D party?`,
     }

@@ -15,3 +15,8 @@ export function getTownBySlug(slug: string) {
   const normalized = normalizeSlug(slug);
   return townPages.find((town) => town.slug === normalized) ?? defaultTown;
 }
+
+export function isValidTownSlug(slug: string) {
+  const normalized = normalizeSlug(slug);
+  return townPages.some((town) => town.slug === normalized);
+}

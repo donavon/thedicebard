@@ -1,4 +1,4 @@
-import { renderMarkdown, resolveRawText } from "~/utils/markdown";
+import { resolveRawText } from "~/utils/markdown";
 import faqSource from "~/content/faq.md?raw";
 
 const headingPattern = /^##\s+(.+?)\s*$/;
@@ -102,8 +102,4 @@ export function getFaqMarkdownItems() {
   }
 
   return items;
-}
-
-export function renderFaqMarkdown(markdown: string) {
-  return renderMarkdown(markdown, "app/content/faq.md");
 }
